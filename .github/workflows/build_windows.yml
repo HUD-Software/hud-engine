@@ -15,29 +15,47 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      # - name: Generate Visual Studio solution
-      #   shell: pwsh
-      #   run: |
-      #     & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
-      #     if($LASTEXITCODE) { Exit $LASTEXITCODE }
-      # - name: Add msbuild to PATH
-      #   uses: microsoft/setup-msbuild@v1.1
-      # - name: Build Visual Studio solution
-      #   shell: pwsh
-      #   run: |
-      #     & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
-      #     if($LASTEXITCODE) { Exit $LASTEXITCODE }
-  build:
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        generator: [Visual Studio 2022]
-        config: [Debug,Release]
-        arch: [Win32,Win64,ARM32,ARM64]
-        toolset: [V142, Clang]
-    needs: [generate-visual-studio-2022-debug-win32-v142]
-    steps:
+      - name: Generate Visual Studio solution
+        shell: pwsh
+        run: |
+          & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
+          if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
       - name: Build Visual Studio solution
         shell: pwsh
-        run: Write-Output balbal
+        run: |
+          & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+          if($LASTEXITCODE) { Exit $LASTEXITCODE }
+
+  test1:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/cache@v3
+        with:
+          path: Build/Generated
+          key: test1-cache
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Generate Visual Studio solution
+        shell: pwsh
+        run: |
+          & cmd.exe /c Build\\CMake\\Windows\\generate.bat "Visual Studio 2022" Win32 V142
+          if($LASTEXITCODE) { Exit $LASTEXITCODE }
+
+  test2:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/cache@v3
+        with:
+          path: Build/Generated
+          key: test1-cache
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Build Visual Studio solution
+        shell: pwsh
+        run: |
+          & cmd.exe /c Build\\CMake\\Windows\\build.bat "Visual Studio 2022" Win32 V142 Debug
+          if($LASTEXITCODE) { Exit $LASTEXITCODE }
