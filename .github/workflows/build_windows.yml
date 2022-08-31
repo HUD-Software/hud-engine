@@ -31,11 +31,6 @@ jobs:
   test1:
     runs-on: windows-latest
     steps:
-      - name: Cache build
-        uses: actions/cache@v3
-        with:
-          path: Build/CMake/Generated
-          key: test1-cache-key
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Generate Visual Studio solution
@@ -43,6 +38,11 @@ jobs:
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\generate.bat "Visual Studio 2022" Win32 V142
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: Build/CMake/Generated
+          key: test1-cache-key
 
   test2:
     runs-on: windows-latest
