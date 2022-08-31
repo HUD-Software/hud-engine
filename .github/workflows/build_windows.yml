@@ -36,13 +36,14 @@ jobs:
       - name: Cache build
         uses: actions/cache@v3
         with:
-          path: $GITHUB_WORKSPACE/Build/CMake/Generated
+          path: Build/CMake/Generated
           key: test1-cache-key
       - name: Generate Visual Studio solution
         shell: pwsh
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\generate.bat "Visual Studio 2022" Win32 V142
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
+          TREE Build/CMake/Generated /F
       
 
   test2:
@@ -52,7 +53,7 @@ jobs:
       - name: Cache build
         uses: actions/cache@v3
         with:
-          path: $GITHUB_WORKSPACE/Build/CMake/Generated
+          path: Build/CMake/Generated
           key: test1-cache-key
       - name: Checkout repository
         uses: actions/checkout@v3
