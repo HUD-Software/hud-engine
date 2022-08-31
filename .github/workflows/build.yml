@@ -16,4 +16,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate Visual Studio solution
         id: generation
-        run: if (! .\\Build/CMake/Windows/generate.bat ""${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}); then exit $LASTEXITCODE
+        shell: pwsh
+        run: |
+          & cmd.exe /c Build/CMake/Windows/generate.bat ""${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }})
+          if($LASTEXITCODE) { Exit $LASTEXITCODE }
