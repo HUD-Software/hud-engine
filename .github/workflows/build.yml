@@ -15,4 +15,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Generate Visual Studio solution
-        run:  Build/CMake/Windows/generate.bat ${{ matrix.generator }} ${{ matrix.arch }} ${{ matrix.toolset }}
+        run:  Build/CMake/Windows/generate.bat "${{ matrix.generator }}"" ${{ matrix.arch }} ${{ matrix.toolset }}
