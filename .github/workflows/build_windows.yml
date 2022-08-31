@@ -6,6 +6,7 @@ jobs:
   build:
     runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
         generator: [Visual Studio 2022]
         config: [Debug,Release]
@@ -25,5 +26,4 @@ jobs:
         shell: pwsh
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
-          Write-Output $LASTEXITCODE
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
