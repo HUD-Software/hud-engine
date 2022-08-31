@@ -19,8 +19,6 @@ jobs:
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
-
-
   build:
     needs: generate (${{ matrix.generator }}, ${{ matrix.arch }}, ${{ matrix.toolset }})
     runs-on: windows-latest
