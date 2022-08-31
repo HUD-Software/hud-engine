@@ -31,10 +31,11 @@ jobs:
   test1:
     runs-on: windows-latest
     steps:
-      - uses: actions/cache@v3
+      - name: Cache build
+        uses: actions/cache@v3
         with:
           path: Build/CMake/Generated
-          key: test1-cache
+          key: test1-cache-key
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Generate Visual Studio solution
@@ -47,10 +48,11 @@ jobs:
     runs-on: windows-latest
     needs: test1
     steps:
-      - uses: actions/cache@v3
+      - name: Cache build
+        uses: actions/cache@v3
         with:
           path: Build/Generated
-          key: test1-cache
+          key: test1-cache-key
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Add msbuild to PATH
