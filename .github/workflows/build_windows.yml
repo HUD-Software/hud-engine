@@ -3,30 +3,30 @@ name: Windows
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  generate:
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        generator: [Visual Studio 2022]
-        config: [Debug,Release]
-        arch: [Win32,Win64,ARM32,ARM64]
-        toolset: [V142, Clang]
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Generate Visual Studio solution
-        shell: pwsh
-        run: |
-          & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
-      - name: Build Visual Studio solution
-        shell: pwsh
-        run: |
-          & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }
+  # generate:
+  #   runs-on: windows-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       generator: [Visual Studio 2022]
+  #       config: [Debug,Release]
+  #       arch: [Win32,Win64,ARM32,ARM64]
+  #       toolset: [V142, Clang]
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+  #     - name: Generate Visual Studio solution
+  #       shell: pwsh
+  #       run: |
+  #         & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
+  #         if($LASTEXITCODE) { Exit $LASTEXITCODE }
+  #     - name: Add msbuild to PATH
+  #       uses: microsoft/setup-msbuild@v1.1
+  #     - name: Build Visual Studio solution
+  #       shell: pwsh
+  #       run: |
+  #         & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+  #         if($LASTEXITCODE) { Exit $LASTEXITCODE }
 
   test1:
     runs-on: windows-latest
