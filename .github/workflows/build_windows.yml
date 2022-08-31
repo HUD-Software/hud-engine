@@ -24,6 +24,6 @@ jobs:
       - name: Build Visual Studio solution
         shell: pwsh
         run: |
-          "& cmd.exe /c Build\\CMake\\Windows\\build.bat \"${{ matrix.generator }}\" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}"
+          & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
           Write-Output $LASTEXITCODE
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
