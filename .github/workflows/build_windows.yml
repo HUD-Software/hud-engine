@@ -3,12 +3,12 @@ name: Windows
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  generate:
+  build:
     runs-on: windows-latest
     strategy:
       matrix:
         generator: [Visual Studio 2022]
-        #config: [Debug,Release]
+        config: [Debug,Release]
         arch: [Win32,Win64,ARM32,ARM64]
         toolset: [V142, Clang]
     steps:
@@ -19,18 +19,5 @@ jobs:
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
-          
-  building:
-    needs: generate (${{ matrix.generator }}, ${{ matrix.arch }}, ${{ matrix.toolset }})
-    runs-on: windows-latest
-    strategy:
-        matrix:
-          generator: [Visual Studio 2022]
-          config: [Debug,Release]
-          arch: [Win32,Win64,ARM32,ARM64]
-          toolset: [V142, Clang]
-      - name: Build Visual Studio solution
-        shell: pwsh
-        run: |
           & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }        
+          if($LASTEXITCODE) { Exit $LASTEXITCODE }
