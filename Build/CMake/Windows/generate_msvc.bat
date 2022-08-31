@@ -68,10 +68,10 @@ IF /I "%generator%" EQU "Visual Studio 2022" SET cmake_generator=Visual Studio 1
 IF /I "%toolset%" EQU "V142" SET cmake_toolset=v142
 IF /I "%toolset%" EQU "Clang" SET cmake_toolset=ClangCL
 
-CALL :PRINT_HEADER "CMake %current_dir%../../../Sources -G %cmake_generator% -A %cmake_arch% -T %cmake_toolset%"
+CALL :PRINT_HEADER "CMake %current_dir%../../.. -G %cmake_generator% -A %cmake_arch% -T %cmake_toolset%"
 ECHO CMake generation ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
-CALL CMake "%current_dir%../../../Sources" -G "%cmake_generator%" -A "%cmake_arch%" -T "%cmake_toolset%"
+CALL CMake "%current_dir%../../.." -G "%cmake_generator%" -A "%cmake_arch%" -T "%cmake_toolset%"
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
 

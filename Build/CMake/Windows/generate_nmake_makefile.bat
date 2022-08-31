@@ -81,10 +81,10 @@ SET CXX="clang-cl.exe"
 SET CC="clang-cl.exe"
 )
 
-CALL :PRINT_HEADER "CMake %current_dir%../../../Sources -G NMake Makefiles"
+CALL :PRINT_HEADER "CMake %current_dir%../../.. -G NMake Makefiles"
 ECHO CMake generation ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
-CALL CMake "%current_dir%../../../Sources" -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=%config%
+CALL CMake "%current_dir%../../.." -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=%config%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
 
