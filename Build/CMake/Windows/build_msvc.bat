@@ -81,7 +81,9 @@ CALL :PRINT_HEADER "msbuild HUDEngine.sln /p:Configuration=%config% %target% -ma
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL msbuild HUDEngine.sln /p:Configuration=%config% %target% -maxcpucount
+ECHO ERROR IS %ERRORLEVEL%
 ECHO.
+ECHO ERROR IS %ERRORLEVEL%
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
 ENDLOCAL
