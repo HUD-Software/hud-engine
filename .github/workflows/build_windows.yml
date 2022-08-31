@@ -38,6 +38,6 @@ jobs:
         toolset: [V142, Clang]
     needs: [generate-visual-studio-2022-debug-win32-v142]
     steps:
-    - - name: Build Visual Studio solution
+      - name: Build Visual Studio solution
         shell: pwsh
         run: Write-Output balbal
