@@ -1,4 +1,4 @@
-name: Windows builds
+name: Windows tests
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -26,4 +26,9 @@ jobs:
         shell: pwsh
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+          if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      - name: Test Visual Studio solution
+        shell: pwsh
+        run: |
+          & cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
