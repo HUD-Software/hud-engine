@@ -6,11 +6,11 @@ jobs:
   generate:
     runs-on: windows-latest
     strategy:
-        matrix:
-          generator: [Visual Studio 2022]
-          #config: [Debug,Release]
-          arch: [Win32,Win64,ARM32,ARM64]
-          toolset: [V142, Clang]
+      matrix:
+        generator: [Visual Studio 2022]
+        #config: [Debug,Release]
+        arch: [Win32,Win64,ARM32,ARM64]
+        toolset: [V142, Clang]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
           & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
   build:
-    needs: generate (${{ matrix.generator }}, ${{ matrix.arch }}, ${{ matrix.toolset }})
+    #needs: generate (${{ matrix.generator }}, ${{ matrix.arch }}, ${{ matrix.toolset }})
     runs-on: windows-latest
     strategy:
         matrix:
