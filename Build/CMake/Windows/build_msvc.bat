@@ -75,10 +75,7 @@ IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 :: ======================================
 PUSHD "%build_dir%"
 where /q msbuild
-IF ERRORLEVEL 1 (
-    echo msbuild not found
-    CALL %current_dir%setup_vs.bat "%generator%" "%arch%" "%toolset%"
-)
+IF ERRORLEVEL 1 CALL %current_dir%setup_vs.bat "%generator%" "%arch%" "%toolset%"
 
 CALL :PRINT_HEADER "msbuild HUDEngine.sln /p:Configuration=%config% %target% -maxcpucount"
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>

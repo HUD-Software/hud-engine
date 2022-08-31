@@ -19,6 +19,8 @@ jobs:
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
       - name: Build Visual Studio solution
         shell: pwsh
         run: |
