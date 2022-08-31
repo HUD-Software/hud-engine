@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Configuration  -->
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)Build\VisualStudio\HUDEngine_Configurations.props" />
+  </ImportGroup>
+  <!-- Globals configuration -->
+  <PropertyGroup Label="Globals">
+    <ProjectGuid><!--{0790C4CC-46F0-4BDB-A7FF-A4521561E811}--></ProjectGuid>
+    <RootNamespace><!--Template--></RootNamespace>
+  </PropertyGroup>
+  <!-- Default configuration -->
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)Build\VisualStudio\HUDEngine_App.props" />
+  </ImportGroup>
+  <!-- Imports HUDEngine props -->
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)Build\VisualStudio\HUDEngine.props" />
+  </ImportGroup>
+  <!-- Source inclusions -->
+  
+  <!-- Imports VS target props -->
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

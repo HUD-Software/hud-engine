@@ -1,0 +1,138 @@
+#include <OSLayer/Traits/IsIntegral.h>
+
+namespace {
+    class A;
+    enum class B : u32;
+}
+
+TEST(Traits, IsIntegral) {
+
+    ASSERT_FALSE((hud::IsIntegralV<A>));
+    ASSERT_FALSE((hud::IsIntegralV<B>));
+    ASSERT_FALSE((hud::IsIntegralV<f64>));
+    ASSERT_FALSE((hud::IsIntegralV<f32>));
+
+    ASSERT_TRUE((hud::IsIntegralV<bool>));
+    ASSERT_TRUE((hud::IsIntegralV<char>));
+    ASSERT_TRUE((hud::IsIntegralV<ansichar>));
+    ASSERT_TRUE((hud::IsIntegralV<char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<char32_t>));
+    ASSERT_TRUE((hud::IsIntegralV<char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<wchar_t>));
+    ASSERT_TRUE((hud::IsIntegralV<wchar>));
+    ASSERT_TRUE((hud::IsIntegralV<signed char>));
+    ASSERT_TRUE((hud::IsIntegralV<i8>));
+    ASSERT_TRUE((hud::IsIntegralV<short int>));
+    ASSERT_TRUE((hud::IsIntegralV<i16>));
+    ASSERT_TRUE((hud::IsIntegralV<int>));
+    ASSERT_TRUE((hud::IsIntegralV<i32>));
+    ASSERT_TRUE((hud::IsIntegralV<long int>));
+    ASSERT_TRUE((hud::IsIntegralV<i64>));
+    ASSERT_TRUE((hud::IsIntegralV<long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<i64>));
+    ASSERT_TRUE((hud::IsIntegralV<long long>));
+    ASSERT_TRUE((hud::IsIntegralV<i64>));
+    ASSERT_TRUE((hud::IsIntegralV<unsigned char>));
+    ASSERT_TRUE((hud::IsIntegralV<u8>));
+    ASSERT_TRUE((hud::IsIntegralV<unsigned short int>));
+    ASSERT_TRUE((hud::IsIntegralV<u16>));
+    ASSERT_TRUE((hud::IsIntegralV<unsigned int>));
+    ASSERT_TRUE((hud::IsIntegralV<u32>));
+    ASSERT_TRUE((hud::IsIntegralV<unsigned long int>));
+    ASSERT_TRUE((hud::IsIntegralV<u64>));
+    ASSERT_TRUE((hud::IsIntegralV<unsigned long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<u64>));
+
+    ASSERT_TRUE((hud::IsIntegralV<const bool>));
+    ASSERT_TRUE((hud::IsIntegralV<const char>));
+    ASSERT_TRUE((hud::IsIntegralV<const ansichar>));
+    ASSERT_TRUE((hud::IsIntegralV<const char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const char32_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const wchar_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const wchar>));
+    ASSERT_TRUE((hud::IsIntegralV<const signed char>));
+    ASSERT_TRUE((hud::IsIntegralV<const i8>));
+    ASSERT_TRUE((hud::IsIntegralV<const short int>));
+    ASSERT_TRUE((hud::IsIntegralV<const i16>));
+    ASSERT_TRUE((hud::IsIntegralV<const int>));
+    ASSERT_TRUE((hud::IsIntegralV<const i32>));
+    ASSERT_TRUE((hud::IsIntegralV<const long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const i64>));
+    ASSERT_TRUE((hud::IsIntegralV<const long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const i64>));
+    ASSERT_TRUE((hud::IsIntegralV<const long long>));
+    ASSERT_TRUE((hud::IsIntegralV<const i64>));
+    ASSERT_TRUE((hud::IsIntegralV<const unsigned char>));
+    ASSERT_TRUE((hud::IsIntegralV<const u8>));
+    ASSERT_TRUE((hud::IsIntegralV<const unsigned short int>));
+    ASSERT_TRUE((hud::IsIntegralV<const u16>));
+    ASSERT_TRUE((hud::IsIntegralV<const unsigned int>));
+    ASSERT_TRUE((hud::IsIntegralV<const u32>));
+    ASSERT_TRUE((hud::IsIntegralV<const unsigned long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const u64>));
+    ASSERT_TRUE((hud::IsIntegralV<const unsigned long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const u64>));
+
+    ASSERT_TRUE((hud::IsIntegralV<const volatile bool>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile char>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile ansichar>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile char32_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile wchar_t>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile wchar>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile signed char>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile i8>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile short int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile i16>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile i32>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile i64>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile i64>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile long long>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile i64>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile unsigned char>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile u8>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile unsigned short int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile u16>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile unsigned int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile u32>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile unsigned long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile u64>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile unsigned long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<const volatile u64>));
+
+    ASSERT_TRUE((hud::IsIntegralV<volatile bool>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile char>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile ansichar>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile char32_t>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile char16_t>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile wchar_t>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile wchar>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile signed char>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile i8>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile short int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile i16>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile i32>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile long int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile i64>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile i64>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile long long>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile i64>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile unsigned char>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile u8>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile unsigned short int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile u16>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile unsigned int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile u32>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile unsigned long int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile u64>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile unsigned long long int>));
+    ASSERT_TRUE((hud::IsIntegralV<volatile u64>));
+}

@@ -1,0 +1,72 @@
+# OS Abstraction Layer (OSAL)
+
+- [x] Compilation
+- [ ] Debugger
+  - [ ] Test on linux that debugger detection works
+  - [ ] Add __nop on Windows before DebugBreak
+- [x] Types
+- [ ] Template
+  - [ ] Add a AssertIfInstanciate<T> struct in template and use it in hash, and replace EvaluateIfInstanciate
+- [ ] Trait
+  - [ ] Check if we can add FloatingPoint bitwise comparabe, copyable etc....
+  - [ ] Check if IsBitwise.... traits is really usefull and not just equal to IsTrivially.... equivalentl
+- [x] Char
+- [ ] CString
+  - [ ] Correctly implement Linux copy_safe, copy_partial_safe, append_safe, append_partial_safe, length_safe
+- [ ] Memory
+  - [ ] Once HeapBuffer is 2 pointers, maybe Memory::*array should take end pointer and not count 
+  - [ ] Check if we can use only Memory::compare with u8* version and get rid of void* version
+- [x] Pair
+  - [x] Pair should use conditional explicit
+- [x] Tuple
+- [x] Atomics
+  - [x] Replace __nop by MemoryBarrier in Atomics ( disable clang-cl warning )
+- [x] UniquePointer
+- [x] SharedPointer
+  - [x] Check SharedPointer correctly use the DefaultDeleter ElementType and PointerType
+  - [ ] ReferenceControllerNoDeleter should use Slice instead of number_of_T+ buffer
+- [ ] Hash
+  - [ ] Move CityHash fetch32 and fetch64 to Memory and make it constexpr
+  - [ ] Use the AssertIfInstanciate in the hash that is not defined with message "Hash function for the type T is not implemented"
+- [x] Allocator : Impl + Test
+- [x] Slice : Impl + Test
+- [x] Iterators : Impl + Test
+- [ ] Array : Impl + Test
+  - [x] Replace Array number_of_element by a pointer to the last element
+  - [ ] Try to make Array constexpr by using std::allocate in constexpr evaluation
+  - [ ] Actually, if the array is move or copy and allocator are not the same, we reallocate the whole array and copy the values, If the allocator is trivially move constructible or move assignable and the allocated type is bitwise moveable
+        (assign and ctor), We should not reallocate the buffer, but just move it like allocator are the same type (Maybe using propagate_on_container_move_assignment)
+- [ ] WeakPointer :
+- [x] Optional
+- [x] HeapBuffer ( HeapSlice )
+  - [x] Make HeapBuffer constexpr
+  - [x] Change HeapBuffer and Slice to use 2 pointer (begin + end instead of begin+size)
+- [ ] CMake Makefiles.txt:
+- [ ] Compiler with makefile:
+- [ ] UTF-8 support (ICU) :
+- [ ] String :
+- [ ] GUID
+  - [ ] Add format when String is done and make it constexpr
+- [ ] Cycles
+- [ ] MemoryInfo
+- [ ] PowerSupplyInfo
+- [ ] SystemInfo
+- [ ] Time
+- [ ] Path
+- [ ] File
+- [ ] TLS
+- [ ] Thread
+- [ ] Socket
+- [ ] BitArray
+- [ ] SparseArray
+- [ ] Set
+- [ ] Map
+- [ ] CompressedPair *(Pair that inherit T1 and T2, if type is empty, it will apply the EBCO to compress the size of the pair) ( Update SharedPointer, UniquePointer, Array and other container to use it instead of Tuple (Better compilation time))*
+- [ ] Move to C++20 modules
+- [ ] Test framework
+- [ ] GCC Linux compilation
+- [ ] Clang format file
+- [ ] Clang Linux compilation
+- [ ] WSL2 GCC and Clang compilation
+- [ ] Create custom build tools (.Net Core Scripting)
+- [ ] Rename OSLayer/{OSLinux,OSWindows} to OSLayer/{Linux, Windows}

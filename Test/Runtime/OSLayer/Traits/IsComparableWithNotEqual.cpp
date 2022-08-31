@@ -1,0 +1,374 @@
+#include <OSLayer/Traits/IsComparableWithNotEqual.h>
+
+namespace {
+    enum Comp_Enum {};
+    enum class Comp_Enum2 {};
+    enum class Comp_Enum3 : u8 {};
+    enum class Comp_Enum4 : u64 {};
+    struct A {};
+    struct B { bool operator!=(const B&) const noexcept; };
+    struct C { bool operator!=(const A&) const noexcept; };
+}
+
+TEST(Traits, IsComparableWithNotEqual) {
+
+    // i8
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i8, char32>));
+
+    // u8
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u8, char32>));
+
+    // i16
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i16, char32>));
+
+    // u16
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u16, char32>));
+
+    // i32
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i32, char32>));
+
+    // u32
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u32, char32>));
+
+    // i64
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<i64, char32>));
+
+    // u64
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<u64, char32>));
+
+    // iptr
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<iptr, char32>));
+
+    // uptr
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<uptr, char32>));
+
+    // f32
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f32, char32>));
+
+    // f64
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<f64, char32>));
+
+    // ansichar
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<ansichar, char32>));
+
+    // wchar
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<wchar, char32>));
+
+    // char16
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char16, char32>));
+
+    // char32
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, i8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, i16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, i32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, i64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, iptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, u8>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, u16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, u32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, u64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, uptr>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, f32>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, f64>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, ansichar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, wchar>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, char16>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<char32, char32>));
+
+    // enum
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<Comp_Enum, Comp_Enum>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum, Comp_Enum2>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum, Comp_Enum3>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum, Comp_Enum4>));
+
+    // enum class
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum2, Comp_Enum>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<Comp_Enum2, Comp_Enum2>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum2, Comp_Enum3>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum2, Comp_Enum4>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum3, Comp_Enum>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum3, Comp_Enum2>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<Comp_Enum3, Comp_Enum3>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum3, Comp_Enum4>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum4, Comp_Enum>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum4, Comp_Enum2>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<Comp_Enum4, Comp_Enum3>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<Comp_Enum4, Comp_Enum4>));
+
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<A, A>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<A, B>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<A, C>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<B, A>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<B, B>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<B, C>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<C, A>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<C, B>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<C, C>));
+
+    //pointers
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, A>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, B>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, C>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, void>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, i8>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, i16>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, i32>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, i64>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, iptr>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, u8>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, u16>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, u32>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, u64>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, uptr>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, f32>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, f64>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, ansichar>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, wchar>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, char16>));
+    ASSERT_FALSE((hud::IsComparableWithNotEqualV<void*, char32>));
+
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, A*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, B*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, C*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, void*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, i8*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, i16*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, i32*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, i64*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, iptr*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, u8*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, u16*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, u32*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, u64*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, uptr*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, f32*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, f64*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, ansichar*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, wchar*>));
+    ASSERT_TRUE((hud::IsComparableWithNotEqualV<void*, char16*>));
+}

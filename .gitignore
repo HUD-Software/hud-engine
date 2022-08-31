@@ -1,0 +1,4 @@
+.vs/
+*.db
+Build/CMake/Generated
+Test/exe/

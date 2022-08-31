@@ -1,0 +1,8 @@
+#pragma once
+#ifndef HD_INC_MISC_TEST_NAMESPACE_H
+#define HD_INC_MISC_TEST_NAMESPACE_H
+
+#define HUD_TEST hud::TEST
+#define HUD_TEST_NAMESPACE namespace HUD_TEST
+
+#endif // HD_INC_MISC_TEST_NAMESPACE_H

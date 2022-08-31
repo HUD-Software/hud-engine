@@ -1,0 +1,6 @@
+
+* text=auto
+
+# Windows batch files require a CR/LF for labels to work properly, otherwise they may fail when labels straddle 512-byte
+# block boundaries
+*.bat eol=crlf

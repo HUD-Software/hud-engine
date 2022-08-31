@@ -1,0 +1,31 @@
+stages:
+    - trigger_pipeline
+
+#
+# OSLayer child pipeline
+#
+OSLayer:
+    stage: trigger_pipeline
+    trigger:
+        include: CICD/Runtime_OSLayer.gitlab-ci.yml
+        strategy: depend
+    only:
+        changes:
+            - Sources/Runtime/OSLayer/**/*
+            - Test/Runtime/OSLayer/**/*
+            - CICD/**/*.yml
+            - Build/CMake/**/*
+    except:
+        - schedules
+
+# 
+# Builds all projects and tests them 
+# Callable only when schedules
+#
+All:Schedules:
+    stage: trigger_pipeline
+    only:
+        - schedules
+    trigger:
+        include: CICD/Runtime_OSLayer.gitlab-ci.yml
+        strategy: depend

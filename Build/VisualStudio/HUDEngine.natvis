@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010"> 
+  
+  <!-- Should be installed in %USERPROFILE%\Documents\Visual Studio 2015\Visualizers-->
+  <!-- hdString -->
+  <Type Name="hdString">  
+	  <DisplayString>{mData.mAllocator.mData, sub}</DisplayString>
+    <Expand>
+      <Item Name="Length" Condition="mData.mSize !=0">mData.mSize-1</Item>
+      <Item Name="Length" Condition="mData.mSize ==0">0</Item>
+    </Expand>
+  </Type>
+  
+  <!-- int128 -->
+  <Type Name="int128">  
+	  <DisplayString>{ mHigh&lt;&lt;32 | mLow }</DisplayString>
+  </Type>
+
+  <!-- hdPair<KeyType, ValueType> -->
+  <Type Name="hdPair&lt;*,*&gt;">
+    <DisplayString> [ Key={mKey}, Value={mValue} ]</DisplayString>
+	<Expand>
+      <Item Name="Key">mKey</Item>
+      <Item Name="Value">mValue</Item>
+	</Expand>
+  </Type>
+  
+  <!-- hdArray<Type, Allocator> -->
+  <Type Name="hdArray&lt;*,*&gt;">
+    <DisplayString Condition="mSize == 0"> Empty </DisplayString>
+	<DisplayString Condition="mSize != 0"> Size={mSize} </DisplayString>
+    <Expand>
+      <Item Name="Size">mSize</Item>
+      <Item Name="MaxSize">mMaxSize</Item>
+      <IndexListItems>
+        <Size>mSize</Size>
+        <ValueNode>(($T1*)mAllocator.mData)[$i]</ValueNode>
+      </IndexListItems>
+    </Expand>
+  </Type>
+  
+  <!-- hdTaggedPtr<PtrType> -->
+  <Type Name="hdTaggedPtr&lt;*&gt;">
+    <DisplayString Condition="(mPtr.mValue &amp; PtrMask) == 0"> { nullptr }</DisplayString>
+	<DisplayString Condition="(mPtr.mValue &amp; PtrMask) != 0"> { *($T1*)(mPtr.mValue &amp; PtrMask) }</DisplayString>
+	<Expand>
+	  <Item Name="Ptr" Condition="(mPtr.mValue &amp; PtrMask) != 0">*($T1*)(mPtr.mValue &amp; PtrMask)</Item>
+	  <Item Name="Ptr" Condition="(mPtr.mValue &amp; PtrMask) == 0">nullptr</Item>
+	  <Item Name="Tag">mPtr.mComponent[TagIndex]</Item>
+	</Expand>
+  </Type>
+  
+  <!-- hdTaggedMarkedPtr<PtrType> -->
+  <Type Name="hdTaggedMarkedPtr&lt;*&gt;">
+    <DisplayString Condition="(mPtr.mValue &amp; PtrMask) == 0"> { nullptr } </DisplayString>
+	<DisplayString Condition="(mPtr.mValue &amp; PtrMask) != 0"> { *($T1*)(mPtr.mValue &amp; PtrMask) } </DisplayString>
+	<Expand>
+	  <Item Name="Ptr" Condition="(mPtr.mValue &amp; PtrMask) != 0">*($T1*)(mPtr.mValue &amp; PtrMask)</Item>
+	  <Item Name="Ptr" Condition="(mPtr.mValue &amp; PtrMask) == 0">nullptr</Item>
+	  <Item Name="Tag">mPtr.mComponent[TagMarkIndex] &amp; TagMask</Item>
+	  <Item Name="Mark">(bool)(mPtr.mComponent[TagMarkIndex] &amp; MarkMask)</Item>
+	</Expand>
+  </Type>
+ 
+  <!-- hdLinkedHash -->
+  <Type Name="hdLinkedHash">
+	<DisplayString> Hash={mHash} </DisplayString>
+	<Expand>
+	  <Item Name="Hash">mHash</Item>
+	  <Item Name="Next">mNext</Item>
+	</Expand>
+  </Type>
+  
+  <!-- hdLinkedHashNode<ElementType> -->
+  <Type Name="hdLinkedHashNode&lt;*&gt;">
+	<DisplayString> Hash={mHash}, Element={mElement}</DisplayString>
+	<Expand>
+	  <Item Name="Hash">mHash</Item>
+	  <Item Name="Next">mNext</Item>
+	  <Item Name="Element">mElement</Item>
+	</Expand>
+  </Type>
+
+  <!-- hdLockFreeListSetHead<ElementType, KeyFunc> -->
+  <Type Name="hdLockFreeListSetHead&lt;*,*&gt;">
+    <DisplayString Condition="mSize == 0"> Empty </DisplayString>
+	<DisplayString> Size={mSize} </DisplayString>
+	<Expand>
+	  <CustomListItems>
+		<Variable Name="iter" InitialValue="(hdLockFreeListSetHead&lt;$T1,$T2&gt;::NodeType*)(mHead.mPtr.mValue &amp; mHead.PtrMask)"/>
+		<Loop>
+			<Break Condition="iter == 0"/>
+			<Item>*iter</Item>
+			<Exec>iter = (hdLockFreeListSetHead&lt;$T1,$T2&gt;::NodeType*)(iter-&gt;mNext.mPtr.mValue &amp; iter-&gt;mNext.PtrMask)</Exec>
+		</Loop>
+	  </CustomListItems>
+    </Expand>  
+  </Type>
+  
+  <!-- hdLockFreeListSet<ElementType, KeyFunc>-->
+  <Type Name="hdLockFreeListSet&lt;*,*&gt;">
+	<DisplayString Condition="mHead.mSize == 0"> Empty </DisplayString>
+	<DisplayString Condition="mHead.mSize != 0"> Size={mSize} </DisplayString>
+	<Expand>
+		<Item Name="Size">mHead.mSize</Item>
+		<Item Name="BucketCount">BucketCount</Item>
+		<CustomListItems>
+		  <Variable Name="iter" InitialValue="(hdLockFreeListSetHead&lt;$T1,$T2&gt;::NodeType*)(mHead.mHead.mPtr.mValue &amp; mHead.mHead.PtrMask)"/>
+		  <Loop>
+			<Break Condition="iter == 0"/>
+			<Item>*iter</Item>
+			<Exec>iter = (hdLockFreeListSetHead&lt;$T1,$T2&gt;::NodeType*)(iter-&gt;mNext.mPtr.mValue &amp; iter-&gt;mNext.PtrMask)</Exec>
+		  </Loop>
+		</CustomListItems>
+	</Expand>
+  </Type>
+  
+  <!-- hdLockFreeSet<ElementType, HashSize, AveragePerBucket, KeyFunc>-->
+  <Type Name="hdLockFreeSet&lt;*,*,*,*&gt;">
+	<DisplayString Condition="mHead.mSize > 1"> Size={mHead.mSize-1} </DisplayString>
+	<DisplayString> Empty </DisplayString>
+	<Expand>
+		<Item Name="Size">mHead.mSize-1</Item>
+		<Item Name="BucketCount">BucketCount</Item>
+		<CustomListItems>
+		  <Variable Name="iter" InitialValue="(hdLockFreeListSetHead&lt;$T4&gt;::NodeType*)(mHead.mHead.mPtr.mValue &amp; mHead.mHead.PtrMask)"/>
+		  <Loop>
+			<Break Condition="iter == 0"/>
+			<Item>*iter</Item>
+			<Exec>iter = (hdLockFreeListSetHead&lt;$T4&gt;::NodeType*)(iter-&gt;mNext.mPtr.mValue &amp; iter-&gt;mNext.PtrMask)</Exec>
+		  </Loop>
+		</CustomListItems>
+	</Expand>
+  </Type>
+  
+  <!-- hdLockFreeMap<KeyType, ValueType, HashSize, AveragePerBucket, KeyFunc>-->
+  <Type Name="hdLockFreeMap&lt;*,*,*,*,*&gt;">
+	<DisplayString Condition="mHead.mSize > 1"> Size={mHead.mSize-1} </DisplayString>
+	<DisplayString> Empty </DisplayString>
+	<Expand>
+		<Item Name="Size">mHead.mSize-1</Item>	
+		<Item Name="BucketCount">BucketCount</Item>
+		<CustomListItems>
+		  <Variable Name="iter" InitialValue="(hdLockFreeListSetHead&lt;$T4&gt;::NodeType*)(mHead.mHead.mPtr.mValue &amp; mHead.mHead.PtrMask)"/>
+		  <Loop>
+			<Break Condition="iter == 0"/>
+			<Item>*iter</Item>
+			<Exec>iter = (hdLockFreeListSetHead&lt;$T4&gt;::NodeType*)(iter-&gt;mNext.mPtr.mValue &amp; iter-&gt;mNext.PtrMask)</Exec>
+		  </Loop>
+		</CustomListItems> 
+	</Expand>
+  </Type>
+  
+  <!-- hdStaticArray<ElementType, ElementCount, Alignment> -->
+  <Type Name="hdStaticArray&lt;*,*,*&gt;">
+	<DisplayString Condition="$T2 == 0"> Empty </DisplayString>
+    <DisplayString Condition="$T2 == 1"> [ { *($T1*)&amp;mElements[0] } ] </DisplayString>
+    <DisplayString Condition="$T2 == 2"> [ {*($T1*)&amp;mElements[0]} , {*($T1*)&amp;mElements[1]} ]</DisplayString>
+    <DisplayString Condition="$T2 == 3"> [ {*($T1*)&amp;mElements[0]} , {*($T1*)&amp;mElements[1]} , {*($T1*)&amp;mElements[2]} ]</DisplayString>
+    <DisplayString Condition="$T2 == 4"> [ { *($T1*)&amp;mElements[0]} , {*($T1*)&amp;mElements[1]} , {*($T1*)&amp;mElements[2]} , {*($T1*)&amp;mElements[3]} ]</DisplayString>
+    <DisplayString Condition="$T2 == 5"> [ {*($T1*)&amp;mElements[0]} , {*($T1*)&amp;mElements[1]} , {*($T1*)&amp;mElements[2]} , {*($T1*)&amp;mElements[3]} , {*($T1*)&amp;mElements[4]} ]</DisplayString>
+    <DisplayString Condition="$T2 > 5"> [ {*($T1*)&amp;mElements[0]} , {*($T1*)&amp;mElements[1]} , {*($T1*)&amp;mElements[2]} , {*($T1*)&amp;mElements[3]} , {*($T1*)&amp;mElements[4]}, ... } ]</DisplayString>
+	<Expand>
+      <IndexListItems>
+        <Size>$T2</Size>
+        <ValueNode>*($T1*)&amp;mElements[$i]</ValueNode>
+      </IndexListItems>
+    </Expand>
+  </Type>
+</AutoVisualizer>
