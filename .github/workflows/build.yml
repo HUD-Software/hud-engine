@@ -15,4 +15,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Generate Visual Studio solution
-        run:  Build/CMake/Windows/generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
+        id: generation
+        run: if ! Build/CMake/Windows/generate.bat ""${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}; then exit $LASTEXITCODE
