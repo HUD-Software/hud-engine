@@ -32,3 +32,13 @@ jobs:
         run: |
           & cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
           if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      - name: Upload badge
+        shell: pwsh
+        run: |
+          $url = https://img.shields.io/badge/%3CSUBJECT%3E-%3CSTATUS%3E-%3CCOLOR%3E.svg
+          Invoke-WebRequest $url -OutFile badge.svg
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: badge
+          path: badge.svg
