@@ -35,7 +35,7 @@ jobs:
       - name: Upload badge
         shell: pwsh
         run: |
-          $url = https://img.shields.io/badge/%3CSUBJECT%3E-%3CSTATUS%3E-%3CCOLOR%3E.svg
+          $url = "https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg"
           Invoke-WebRequest $url -OutFile badge.svg
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
