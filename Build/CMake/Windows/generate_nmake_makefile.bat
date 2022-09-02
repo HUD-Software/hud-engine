@@ -10,7 +10,7 @@ ECHO.
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 )) 
 SET generator=%~1
 
@@ -25,7 +25,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 ))))
 SET arch=%~2
 
@@ -38,7 +38,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 ))
 set toolset=%~3
 
@@ -52,7 +52,7 @@ ECHO.
 ECHO Error: [config] is invalid : "%~4"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 )))
 SET config=%~4
 
@@ -74,7 +74,7 @@ IF EXIST CMakeCache.txt DEL CMakeCache.txt
 
 
 CALL %current_dir%setup_vs.bat "%generator%" "%arch%" "%toolset%" 
-IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 
 :: Get the clang compiler if we ask for Clang
 IF "%toolset%" EQU "Clang" (
@@ -91,7 +91,7 @@ ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^
 
 POPD
 ENDLOCAL
-EXIT %ERRORLEVEL%
+EXIT /B %ERRORLEVEL%
 
 
 :: =====================
