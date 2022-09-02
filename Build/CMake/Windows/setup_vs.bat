@@ -86,9 +86,9 @@ EXIT /B 0
 SET VSDEVCMD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
-IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
+IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT ) 
+ECHO No Visual Studio 2019 installation found
 EXIT /B 1
-GOTO VSDEVCMD_SCRIPT
 
 :: ==========================
 ::  Setup Visual Studio 2022
@@ -98,6 +98,7 @@ SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
+ECHO No Visual Studio 2022 installation found
 EXIT /B 1
 
 :: ============================================
@@ -142,4 +143,4 @@ ECHO     * For Visual Studio 2019 generator
 ECHO       * V142
 ECHO       * Clang
 ECHO.
-EXIT 0
+EXIT /B 0
