@@ -44,25 +44,25 @@ jobs:
           path: Status/OSLayer/*.svg
 
 
-  # push-status:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     #- uses: actions/upload-artifact@v2
+  push-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/upload-artifact@v2
 
-  #     # - uses: actions/download-artifact@v3
-  #     #   with:
-  #     #     name: os-layer-status
+      - uses: actions/download-artifact@v3
+        with:
+          name: os-layer-status
 
-  #     - name: Display structure of downloaded files
-  #       run: ls -R
-  #       working-directory: Status/OSLayer/
-  #     # - name: Push to status web-site
-  #     #   uses: cpina/github-action-push-to-another-repository@main
-  #     #   env:
-  #     #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-  #     #   with:
-  #     #     source-directory: 'Status/OSLayer'
-  #     #     destination-github-username: 'hud-software'
-  #     #     destination-repository-name: 'hud-engine-status/Status/OSLayer'
-  #     #     user-email: ci-oslayer
-  #     #     target-branch: main
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: Status/OSLayer/
+      # - name: Push to status web-site
+      #   uses: cpina/github-action-push-to-another-repository@main
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      #   with:
+      #     source-directory: 'Status/OSLayer'
+      #     destination-github-username: 'hud-software'
+      #     destination-repository-name: 'hud-engine-status/Status/OSLayer'
+      #     user-email: ci-oslayer
+      #     target-branch: main
