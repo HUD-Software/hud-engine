@@ -48,8 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/upload-artifact@v2
-      - name: Retrieves status
-        uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: os-layer-status
       - name: Push to status web-site
