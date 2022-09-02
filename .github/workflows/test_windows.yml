@@ -62,6 +62,6 @@ jobs:
         with:
           source-directory: 'Status/OSLayer'
           destination-github-username: 'hud-software'
-          destination-repository-name: 'hud-engine-status/Status/OSLayer'
+          destination-repository-name: 'hud-engine-status'
           user-email: ci-oslayer
           target-branch: main
