@@ -37,6 +37,23 @@ jobs:
         run: |
           $url = "https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg"
           Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/badge.svg" -Force )
+      - name: Cache status
+      - uses: actions/upload-artifact@v2
+        with:
+          name: os-layer-status
+          path: Status/OSLayer/*.svg
+
+
+  push-status:
+    runs-on: ubuntu-latest
+    needs: [generate]
+    if: always()
+    steps:
+      - name: Retrieves status
+        - uses: actions/upload-artifact@v2
+        - uses: actions/download-artifact@v2
+        with:
+          name: os-layer-status
       - name: Push to status web-site
         uses: cpina/github-action-push-to-another-repository@main
         env:
@@ -47,8 +64,3 @@ jobs:
           destination-repository-name: 'hud-engine-status/Status/OSLayer'
           user-email: ci-oslayer
           target-branch: main
-      # - name: Archive code coverage results
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: badge
-      #     path: badge.svg
