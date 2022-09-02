@@ -85,7 +85,7 @@ ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
 ENDLOCAL
-EXIT %ERRORLEVEL%
+EXIT /B %ERRORLEVEL%
 
 :: =====================
 :: Print command header
