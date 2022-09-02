@@ -43,7 +43,7 @@ jobs:
       #     name: os-layer-status
       #     path: Status/OSLayer/*.svg
       - name: Cache status
-        uses: actions/cache@v3
+        uses: actions/cache@v2
         with:
           key: os-layer-status
           path: Status/OSLayer
@@ -58,7 +58,7 @@ jobs:
       #     name: os-layer-status
       #     path: Status/OSLayer
       - name: Cache status
-        uses: actions/cache@v3
+        uses: actions/cache@v2
         with:
           key: os-layer-status
           path: Status/OSLayer
