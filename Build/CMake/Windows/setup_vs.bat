@@ -13,7 +13,7 @@ ECHO.
 ECHO Error: [visual_studio] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))
 SET visual_studio=%~1
 
@@ -29,7 +29,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))))
 SET arch=%~2
 
@@ -42,7 +42,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 set toolset=%~3
 
@@ -76,7 +76,7 @@ IF /I "%visual_studio%" EQU "NMake Visual Studio 2019" (
 IF /I "%visual_studio%" EQU "Visual Studio 2019"  GOTO SETUP_VS_2019_ENV_VAR
 IF /I "%visual_studio%" EQU "Visual Studio 2022"  GOTO SETUP_VS_2022_ENV_VAR
 IF /I "%visual_studio%" EQU "NMake Visual Studio 2019" GOTO SETUP_VS_2019_ENV_VAR
-EXIT /B 0
+EXIT 0
 
 :: ==========================
 ::  Setup Visual Studio 2019
@@ -86,7 +86,7 @@ SET VSDEVCMD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\C
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
-EXIT /B 1
+EXIT 1
 GOTO VSDEVCMD_SCRIPT
 :: ==========================
 ::  Setup Visual Studio 2022
@@ -96,7 +96,7 @@ SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
-EXIT /B 1
+EXIT 1
 
 :: ============================================
 :: Call VsDevCmd.bat set in %$VSDEVCMD%
@@ -113,8 +113,8 @@ ECHO TOOLSET="%toolset%"
 ECHO HOST_ARCH="%host_arch%"
 ECHO CMD = %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
 ECHO. 
-CALL %VSDEVCMD%  -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
-EXIT /B 0
+CALL %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
+EXIT 0
 
 :: ================
 ::  Print the help
@@ -137,4 +137,4 @@ ECHO   [toolset] Set the toolset used to generate the project
 ECHO     * For Visual Studio 2019 generator
 ECHO       * V142
 ECHO.
-EXIT /B 0
+EXIT 0

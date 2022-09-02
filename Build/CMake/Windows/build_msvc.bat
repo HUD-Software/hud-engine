@@ -10,7 +10,7 @@ IF /I "%~1" NEQ "Visual Studio 2022" (
     ECHO Error: [generator] is invalid : "%~1"
     ECHO.
     CALL:PRINT_HELP
-    EXIT /B 1
+    EXIT 1
 ))
 SET generator=%~1
 
@@ -25,7 +25,7 @@ IF /I "%~2" NEQ "ARM64" (
     ECHO Error: [arch] is invalid : "%~2"
     ECHO.
     CALL:PRINT_HELP
-    EXIT /B 1
+    EXIT 1
 ))))
 SET arch=%~2
 
@@ -38,7 +38,7 @@ IF /I "%~3" NEQ "Clang" (
     ECHO Error: [toolset] is invalid : "%~3"
     ECHO.
     CALL:PRINT_HELP
-    EXIT /B 1
+    EXIT 1
 ))
 set toolset=%~3
 
@@ -52,7 +52,7 @@ ECHO.
 ECHO Error: [config] is invalid : "%~4"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))
 SET config=%~4
 
@@ -68,7 +68,7 @@ SET target=/target:%~5
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%" "%config%"
-IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 
 :: ======================================
 ::  Build the HUDEngine.sln using MSBuild
@@ -85,7 +85,7 @@ ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
 ENDLOCAL
-EXIT /B %ERRORLEVEL%
+EXIT %ERRORLEVEL%
 
 :: =====================
 :: Print command header
@@ -103,7 +103,7 @@ ECHO ARCHITECTURE = %arch%
 ECHO TOOLSET = %toolset%
 ECHO CMD = %~1
 ECHO.
-EXIT /B 0
+EXIT 0
 
 
 :: ================
@@ -133,4 +133,4 @@ ECHO     * DebugOptimized
 ECHO.
 ECHO   [target] (Optional) Select the target to build. This correspond to the generator target.
 ECHO.
-EXIT /B 0
+EXIT 0
