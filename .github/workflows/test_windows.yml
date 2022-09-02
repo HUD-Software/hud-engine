@@ -32,8 +32,6 @@ jobs:
       #   run: |
       #     & cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
       #     if($LASTEXITCODE) { Exit $LASTEXITCODE }
-
-
       - name: Upload badge
         shell: pwsh
         run: |
@@ -44,11 +42,11 @@ jobs:
       #   with:
       #     name: os-layer-status
       #     path: Status/OSLayer/*.svg
-        - name: Cache status
-          uses: actions/cache@v3
-          with:
-            key: os-layer-status
-            path: Status/OSLayer/*.svg
+      - name: Cache status
+        uses: actions/cache@v3
+        with:
+          key: os-layer-status
+          path: Status/OSLayer/*.svg
 
   push-status:
     runs-on: ubuntu-latest
