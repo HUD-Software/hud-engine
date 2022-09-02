@@ -9,28 +9,28 @@ IF /I "%~1" EQU "-help" GOTO PRINT_HELP
 IF /I "%~1" NEQ "Visual Studio 2019" (
 IF /I "%~1" NEQ "Visual Studio 2022" (
 IF /I "%~1%" NEQ "NMake Visual Studio 2019" (
+IF /I "%~1%" NEQ "NMake Visual Studio 2022" (
 ECHO. 
 ECHO Error: [visual_studio] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
-)))
+EXIT /B 1
+)))) 
 SET visual_studio=%~1
 
 :: ============================
 ::  Check [arch] parameter
 :: ============================
-IF /I "%~2" EQU "NMake" (
 IF /I "%~2" NEQ "Win32" (
 IF /I "%~2" NEQ "Win64" (
-IF /I "%~2" NEQ "ARL" (
+IF /I "%~2" NEQ "ARM32" (
 IF /I "%~2" NEQ "ARM64" (
 ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
-)))))
+EXIT /B 1
+))))
 SET arch=%~2
 
 :: =============================
@@ -42,7 +42,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 ))
 set toolset=%~3
 
@@ -66,9 +66,9 @@ IF /I "%toolset%" EQU "V142" SET toolset_arg=-vcvars_ver=14.2
 SET host_arch=amd64
 IF /I "%arch%" EQU "Win32" (
 IF /I "%toolset%" EQU "Clang" (
-IF /I "%visual_studio%" EQU "NMake Visual Studio 2019" (
-    SET host_arch=x86
-)))
+IF /I "%visual_studio%" EQU "NMake Visual Studio 2019" SET host_arch=x86
+IF /I "%visual_studio%" EQU "NMake Visual Studio 2022" SET host_arch=x86
+))
 
 :: =======================
 ::  Setup the environment
@@ -76,7 +76,8 @@ IF /I "%visual_studio%" EQU "NMake Visual Studio 2019" (
 IF /I "%visual_studio%" EQU "Visual Studio 2019"  GOTO SETUP_VS_2019_ENV_VAR
 IF /I "%visual_studio%" EQU "Visual Studio 2022"  GOTO SETUP_VS_2022_ENV_VAR
 IF /I "%visual_studio%" EQU "NMake Visual Studio 2019" GOTO SETUP_VS_2019_ENV_VAR
-EXIT 0
+IF /I "%visual_studio%" EQU "NMake Visual Studio 2022" GOTO SETUP_VS_2022_ENV_VAR
+EXIT /B 0
 
 :: ==========================
 ::  Setup Visual Studio 2019
@@ -86,8 +87,9 @@ SET VSDEVCMD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\C
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
-EXIT 1
+EXIT /B 1
 GOTO VSDEVCMD_SCRIPT
+
 :: ==========================
 ::  Setup Visual Studio 2022
 :: ==========================
@@ -96,7 +98,7 @@ SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
-EXIT 1
+EXIT /B 1
 
 :: ============================================
 :: Call VsDevCmd.bat set in %$VSDEVCMD%
@@ -114,7 +116,7 @@ ECHO HOST_ARCH="%host_arch%"
 ECHO CMD = %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
 ECHO. 
 CALL %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
-EXIT 0
+EXIT /B 0
 
 :: ================
 ::  Print the help
@@ -126,6 +128,8 @@ ECHO.
 ECHO   [visual_studio] Setup the Visual Studio environment of a specific version
 ECHO     * Visual Studio 2019
 ECHO     * Visual Studio 2022
+ECHO     * NMake Visual Studio 2019
+ECHO     * NMake Visual Studio 2022
 ECHO.
 ECHO   [arch] Architecture for compiled binaries/libraries
 ECHO     * Win32
@@ -136,5 +140,6 @@ ECHO.
 ECHO   [toolset] Set the toolset used to generate the project
 ECHO     * For Visual Studio 2019 generator
 ECHO       * V142
+ECHO       * Clang
 ECHO.
 EXIT 0
