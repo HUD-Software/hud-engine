@@ -9,28 +9,28 @@ IF /I "%~1" EQU "-help" GOTO PRINT_HELP
 IF /I "%~1" NEQ "Visual Studio 2019" (
 IF /I "%~1" NEQ "Visual Studio 2022" (
 IF /I "%~1" NEQ "NMake Visual Studio 2019" (
+IF /I "%~1" NEQ "NMake Visual Studio 2022" (
 ECHO. 
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
 EXIT /B 1
-)))
+)))) 
 SET generator=%~1
 
 :: ============================
 ::  Check [arch] parameter
 :: ============================
-IF /I "%~2" EQU "NMake" (
 IF /I "%~2" NEQ "Win32" (
 IF /I "%~2" NEQ "Win64" (
-IF /I "%~2" NEQ "ARL" (
+IF /I "%~2" NEQ "ARM32" (
 IF /I "%~2" NEQ "ARM64" (
 ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
 EXIT /B 1
-)))))
+))))
 SET arch=%~2
 
 :: =============================
@@ -92,6 +92,7 @@ ECHO   [generator] The generator used to generate the project
 ECHO     * Visual Studio 2019
 ECHO     * Visual Studio 2022
 ECHO     * NMake Visual Studio 2019
+ECHO     * NMake Visual Studio 2022
 ECHO.
 ECHO   [arch] Set the architecture used to generate the project
 ECHO     * Win32
