@@ -46,8 +46,8 @@ jobs:
 
   push-status:
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     needs: [generate]
-    if: always()
     steps:
       - name: Retrieves status
         - uses: actions/upload-artifact@v2
