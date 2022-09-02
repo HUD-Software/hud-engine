@@ -55,13 +55,13 @@ jobs:
           path: Status/OSLayer
       - name: Display structure of downloaded files
         run: ls -R
-      # - name: Push to status web-site
-      #   uses: cpina/github-action-push-to-another-repository@main
-      #   env:
-      #     API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      #   with:
-      #     source-directory: 'Status/OSLayer'
-      #     destination-github-username: 'hud-software'
-      #     destination-repository-name: 'hud-engine-status/Status/OSLayer'
-      #     user-email: ci-oslayer
-      #     target-branch: main
+      - name: Push to status web-site
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'Status/OSLayer'
+          destination-github-username: 'hud-software'
+          destination-repository-name: 'hud-engine-status/Status/OSLayer'
+          user-email: ci-oslayer
+          target-branch: main
