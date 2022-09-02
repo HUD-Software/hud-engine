@@ -58,10 +58,10 @@ jobs:
       #     name: os-layer-status
       #     path: Status/OSLayer
       - name: Cache status
-          uses: actions/cache@v3
-          with:
-            key: os-layer-status
-            path: Status/OSLayer/*.svg
+        uses: actions/cache@v3
+        with:
+          key: os-layer-status
+          path: Status/OSLayer/*.svg
       - name: Display structure of downloaded files
         run: ls -R
       - name: Push to status web-site
