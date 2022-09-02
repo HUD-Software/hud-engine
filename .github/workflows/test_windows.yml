@@ -25,7 +25,7 @@ jobs:
           } else {
             $url = "https://img.shields.io/badge/{{matrix.arch}}-Success-green.svg"
           }
-          Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}/${{matrix.toolset}}/${{matrix.arch}}/generation.svg" -Force )
+          Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-generation.svg" -Force )
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Build Visual Studio solution
@@ -38,7 +38,7 @@ jobs:
           } else {
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Success-green.svg"
           }
-          Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}/${{matrix.toolset}}/${{matrix.arch}}/build.svg" -Force )
+          Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-build.svg" -Force )
       - name: Test Visual Studio solution
         shell: pwsh
         run: |
@@ -49,12 +49,12 @@ jobs:
           } else {
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Success-green.svg"
           }
-          Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}/${{matrix.toolset}}/${{matrix.arch}}/test.svg" -Force )
+          Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/$${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-test.svg" -Force )
       - name: Cache status
         uses: actions/upload-artifact@v2
         with:
           name: os-layer-status
-          path: Status/OSLayer/${{matrix.generator}}/${{matrix.toolset}}/${{matrix.arch}}/*.svg
+          path: Status/OSLayer/*.svg
 
   push-status:
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: os-layer-status
-          path: Status/OSLayer/${{matrix.generator}}/${{matrix.toolset}}/${{matrix.arch}}
+          path: Status/OSLayer
       - name: Display structure of downloaded files
         run: ls -R
       - name: Push to status web-site
