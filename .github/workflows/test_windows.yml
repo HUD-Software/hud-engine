@@ -61,6 +61,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source-directory: 'Status/OSLayer'
+          target-directory: 'Status/OSLayer'
           destination-github-username: 'hud-software'
           destination-repository-name: 'hud-engine-status'
           user-email: ci-oslayer
