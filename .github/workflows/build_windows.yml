@@ -15,15 +15,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Generate Visual Studio solution
-        shell: pwsh
-        run: |
-          & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
-      - name: Build Visual Studio solution
-        shell: pwsh
-        run: |
-          & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      # - name: Generate Visual Studio solution
+      #   shell: pwsh
+      #   run: |
+      #     & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
+      #     if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      # - name: Add msbuild to PATH
+      #   uses: microsoft/setup-msbuild@v1.1
+      # - name: Build Visual Studio solution
+      #   shell: pwsh
+      #   run: |
+      #     & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+      #     if($LASTEXITCODE) { Exit $LASTEXITCODE }

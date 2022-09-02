@@ -13,32 +13,42 @@ jobs:
         arch: [Win32,Win64,ARM32,ARM64]
         toolset: [V142, Clang]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Generate Visual Studio solution
-        shell: pwsh
-        run: |
-          & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }
-      - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.1
-      - name: Build Visual Studio solution
-        shell: pwsh
-        run: |
-          & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }
-      - name: Test Visual Studio solution
-        shell: pwsh
-        run: |
-          & cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
-          if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      # - name: Checkout repository
+      #   uses: actions/checkout@v3
+      # - name: Generate Visual Studio solution
+      #   shell: pwsh
+      #   run: |
+      #     & cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }}
+      #     if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      # - name: Add msbuild to PATH
+      #   uses: microsoft/setup-msbuild@v1.1
+      # - name: Build Visual Studio solution
+      #   shell: pwsh
+      #   run: |
+      #     & cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+      #     if($LASTEXITCODE) { Exit $LASTEXITCODE }
+      # - name: Test Visual Studio solution
+      #   shell: pwsh
+      #   run: |
+      #     & cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+      #     if($LASTEXITCODE) { Exit $LASTEXITCODE }
       - name: Upload badge
         shell: pwsh
         run: |
           $url = "https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg"
-          Invoke-WebRequest $url -OutFile badge.svg
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
+          Invoke-WebRequest $url -OutFile Status/OSLayer/badge.svg
+      - name: Push to status web-site
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          name: badge
-          path: badge.svg
+          source-directory: 'Status/OSLayer'
+          destination-github-username: 'hud-software'
+          destination-repository-name: 'hud-engine-status/Status/OSLayer'
+          user-email: ci-oslayer
+          target-branch: main
+      # - name: Archive code coverage results
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: badge
+      #     path: badge.svg
