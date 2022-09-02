@@ -5,12 +5,13 @@ SETLOCAL
 ::  Check [generator] parameter
 :: ============================
 IF /I "%~1" NEQ "NMake Visual Studio 2019" (
+IF /I "%~1" NEQ "NMake Visual Studio 2022" (
 ECHO. 
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
 EXIT /B 1
-)
+)) 
 SET generator=%~1
 
 :: ============================
@@ -76,6 +77,7 @@ where /q nmake
 IF ERRORLEVEL 1 (
     setlocal enabledelayedexpansion
     IF /I "%generator%" EQU "NMake Visual Studio 2019" SET visual_studio=Visual Studio 2019
+    IF /I "%generator%" EQU "NMake Visual Studio 2022" SET visual_studio=Visual Studio 2022
     :: Get the visual studio to setup
     CALL %current_dir%\setup_vs.bat "!visual_studio!" "%arch%" "%toolset%" 
     setlocal disabledelayedexpansion
@@ -118,6 +120,7 @@ ECHO Syntax: generate_nmake_makefile.bat [generator] [arch] [toolset] [config]
 ECHO.
 ECHO   [generator] The generator used to generate the project
 ECHO     * NMake Visual Studio 2019
+ECHO     * NMake Visual Studio 2022
 ECHO.
 ECHO   [arch] Set the architecture used to generate the project
 ECHO     * Win32
