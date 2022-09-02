@@ -52,6 +52,10 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: os-layer-status
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: Status/OSLayer/
       # - name: Push to status web-site
       #   uses: cpina/github-action-push-to-another-repository@main
       #   env:
