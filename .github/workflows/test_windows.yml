@@ -10,8 +10,8 @@ jobs:
       matrix:
         generator: [Visual Studio 2022]
         config: [Debug,Release]
-        arch: [Win32,Win64,ARM32,ARM64]
-        toolset: [V142, Clang]
+        # arch: [Win32,Win64,ARM32,ARM64]
+        # toolset: [V142, Clang]
     steps:
       # - name: Checkout repository
       #   uses: actions/checkout@v3
@@ -46,9 +46,9 @@ jobs:
 
   push-status:
     runs-on: ubuntu-latest
+    needs: [generate]
+    if: ${{always()}}
     steps:
-      - uses: actions/upload-artifact@v2
-
       - uses: actions/download-artifact@v3
         with:
           name: os-layer-status
