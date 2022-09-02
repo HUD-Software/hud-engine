@@ -52,7 +52,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: os-layer-status
-
+          path: Status/OSLayer
       - name: Display structure of downloaded files
         run: ls -R
       # - name: Push to status web-site
