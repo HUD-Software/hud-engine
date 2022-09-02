@@ -7,7 +7,7 @@ SETLOCAL
 where /q cmake
 IF ERRORLEVEL 1 (
 ECHO CMake not found
-EXIT /B 1
+EXIT 1
 )
 
 IF /I "%~1" EQU "Visual Studio 2019" (
