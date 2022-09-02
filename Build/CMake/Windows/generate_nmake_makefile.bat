@@ -109,7 +109,7 @@ ECHO ARCHITECTURE = %arch%
 ECHO TOOLSET = %toolset%
 ECHO CMD = %~1
 ECHO. 
-EXIT 0
+EXIT /B 0
 
 
 :: ================
@@ -138,4 +138,4 @@ ECHO     * Debug
 ECHO     * Release
 ECHO     * DebugOptimized
 ECHO.
-EXIT 0
+EXIT /B 0
