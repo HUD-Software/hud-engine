@@ -84,8 +84,8 @@ CALL msbuild HUDEngine.sln /p:Configuration=%config% %target% -maxcpucount
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
-ENDLOCAL
 EXIT /B %ERRORLEVEL%
+ENDLOCAL
 
 :: =====================
 :: Print command header
