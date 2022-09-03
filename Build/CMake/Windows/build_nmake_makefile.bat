@@ -79,7 +79,8 @@ IF ERRORLEVEL 1 (
     IF /I "%generator%" EQU "NMake Visual Studio 2019" SET visual_studio=Visual Studio 2019
     IF /I "%generator%" EQU "NMake Visual Studio 2022" SET visual_studio=Visual Studio 2022
     :: Get the visual studio to setup
-    CALL %current_dir%\setup_vs.bat "!visual_studio!" "%arch%" "%toolset%" 
+    CALL %current_dir%\setup_vs.bat "!visual_studio!" "%arch%" "%toolset%"
+    IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
     setlocal disabledelayedexpansion
 )
 CALL :PRINT_HEADER "nmake %target%"
@@ -87,6 +88,7 @@ SET VERBOSE=1
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL nmake %target%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
