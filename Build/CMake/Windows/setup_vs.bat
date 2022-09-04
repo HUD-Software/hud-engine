@@ -118,8 +118,7 @@ ECHO TOOLSET="%toolset%"
 ECHO HOST_ARCH="%host_arch%"
 ECHO CMD = %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
 ECHO. 
-REM CALL %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
-CALL %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg%
+CALL %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
 EXIT /B 0
 
 :: ================

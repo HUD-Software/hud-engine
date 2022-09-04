@@ -146,3 +146,7 @@
 ## CRC32
 
 - [CRC32](https://create.stephan-brumme.com/crc32/)
+
+## Product Keys
+
+-[Microsoft](https://gist.github.com/ssbalakumar/17e5402c3df6a2e57f8af52844c958e3)
