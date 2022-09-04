@@ -82,7 +82,7 @@ IF ERRORLEVEL 1 (
     CALL %current_dir%\setup_vs.bat "!visual_studio!" "%arch%" "%toolset%"
     IF ERRORLEVEL 1 (
         setlocal disabledelayedexpansion
-        EXIT /B %ERRORLEVEL%
+        EXIT /B 1
     ) 
 )
 CALL :PRINT_HEADER "nmake %target%"
@@ -90,12 +90,12 @@ SET VERBOSE=1
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL nmake %target%
-IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B 1
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
 ENDLOCAL
-EXIT /B %ERRORLEVEL%
+EXIT /B 0
 
 :: =====================
 :: Print command header
