@@ -98,6 +98,8 @@ SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
+SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"
+IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 ECHO No Visual Studio 2022 installation found
 EXIT /B 1
 
