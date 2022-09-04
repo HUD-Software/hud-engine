@@ -80,8 +80,10 @@ IF ERRORLEVEL 1 (
     IF /I "%generator%" EQU "NMake Visual Studio 2022" SET visual_studio=Visual Studio 2022
     :: Get the visual studio to setup
     CALL %current_dir%\setup_vs.bat "!visual_studio!" "%arch%" "%toolset%"
-    IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
-    setlocal disabledelayedexpansion
+    IF ERRORLEVEL 1 (
+        setlocal disabledelayedexpansion
+        EXIT /B %ERRORLEVEL%
+    ) 
 )
 CALL :PRINT_HEADER "nmake %target%"
 SET VERBOSE=1
