@@ -119,7 +119,7 @@ ECHO HOST_ARCH="%host_arch%"
 ECHO CMD = %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
 ECHO. 
 CALL %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
-EXIT /B 0
+EXIT /B %ERRORLEVEL%
 
 :: ================
 ::  Print the help

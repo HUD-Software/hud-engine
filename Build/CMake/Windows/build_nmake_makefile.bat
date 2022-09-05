@@ -1,5 +1,4 @@
 @ECHO OFF
-SETLOCAL
 
 :: ============================
 ::  Check [generator] parameter
@@ -75,27 +74,22 @@ IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 PUSHD "%build_dir%"
 where /q nmake
 IF ERRORLEVEL 1 (
-    setlocal enabledelayedexpansion
-    IF /I "%generator%" EQU "NMake Visual Studio 2019" SET visual_studio=Visual Studio 2019
-    IF /I "%generator%" EQU "NMake Visual Studio 2022" SET visual_studio=Visual Studio 2022
-    :: Get the visual studio to setup
-    CALL %current_dir%\setup_vs.bat "!visual_studio!" "%arch%" "%toolset%"
-    IF ERRORLEVEL 1 (
-        setlocal disabledelayedexpansion
-        EXIT /B 1
-    ) 
+    IF /I "%generator%" EQU "NMake Visual Studio 2019" CALL %current_dir%\setup_vs.bat "Visual Studio 2019" "%arch%" "%toolset%"
+    IF /I "%generator%" EQU "NMake Visual Studio 2022" CALL %current_dir%\setup_vs.bat "Visual Studio 2022" "%arch%" "%toolset%"
+    IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 )
+
 CALL :PRINT_HEADER "nmake %target%"
 SET VERBOSE=1
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL nmake %target%
-IF ERRORLEVEL 1 EXIT /B 1
+set build_success=%ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
-ENDLOCAL
-EXIT /B 0
+ECHO. build_nmake return %build_success%
+EXIT /B %build_success%
 
 :: =====================
 :: Print command header

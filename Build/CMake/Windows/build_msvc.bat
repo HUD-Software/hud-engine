@@ -1,5 +1,4 @@
 @ECHO OFF
-SETLOCAL
 
 :: ============================
 ::  Check [generator] parameter
@@ -81,13 +80,12 @@ CALL :PRINT_HEADER "msbuild HUDEngine.sln /p:Configuration=%config% %target% -ma
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL msbuild HUDEngine.sln /p:Configuration=%config% %target% -maxcpucount
-ECHO. build_msvc return %ERRORLEVEL%
-IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+set build_success=%ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
-EXIT /B %ERRORLEVEL%
-ENDLOCAL
+ECHO. build_msvc return %build_success%
+EXIT /B %build_success%
 
 :: =====================
 :: Print command header
