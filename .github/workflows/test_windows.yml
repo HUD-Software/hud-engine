@@ -31,7 +31,7 @@ jobs:
       - name: Generate Visual Studio solution
         shell: pwsh
         run: |
-          cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{matrix.config}}$
+          cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{matrix.config}}
           Write-Output "=====> Generation LASTEXITCODE is $LASTEXITCODE"
           if($LASTEXITCODE) { 
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Fail-red.svg?logo=cmake&logoColor=white"
