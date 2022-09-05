@@ -1,4 +1,4 @@
-:: @ECHO OFF
+@ECHO OFF
 
 :: ============================
 ::  Check [generator] parameter
@@ -65,7 +65,7 @@ SET target=%~5
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%" "%config%"
-IF ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 
 :: ==========================================
 ::  Build the HUDEngine Makefile using nmake
