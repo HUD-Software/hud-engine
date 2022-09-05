@@ -9,7 +9,7 @@ IF /I "%~1" NEQ "Visual Studio 2022" (
     ECHO Error: [generator] is invalid : "%~1"
     ECHO.
     CALL:PRINT_HELP
-    EXIT /B 1
+    EXIT 1
 ))
 SET generator=%~1
 
@@ -24,7 +24,7 @@ IF /I "%~2" NEQ "ARM64" (
     ECHO Error: [arch] is invalid : "%~2"
     ECHO.
     CALL:PRINT_HELP
-    EXIT /B 1
+    EXIT 1
 ))))
 SET arch=%~2
 
@@ -37,7 +37,7 @@ IF /I "%~3" NEQ "Clang" (
     ECHO Error: [toolset] is invalid : "%~3"
     ECHO.
     CALL:PRINT_HELP
-    EXIT /B 1
+    EXIT 1
 ))
 set toolset=%~3
 
