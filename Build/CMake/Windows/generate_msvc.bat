@@ -92,7 +92,7 @@ ECHO ARCHITECTURE = %arch%
 ECHO TOOLSET = %toolset%
 ECHO CMD = %~1
 ECHO. 
-EXIT 0
+EXIT /B 0
 
 
 :: ================
@@ -116,4 +116,4 @@ ECHO   [toolset] Set the toolset used to generate the project
 ECHO     * V142
 ECHO     * Clang
 ECHO.
-EXIT 0
+EXIT /B 0
