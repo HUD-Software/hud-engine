@@ -9,7 +9,7 @@ ECHO.
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 )) 
 SET generator=%~1
 
@@ -24,7 +24,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 ))))
 SET arch=%~2
 
@@ -37,7 +37,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 ))
 set toolset=%~3
 
@@ -51,7 +51,7 @@ ECHO.
 ECHO Error: [config] is invalid : "%~4"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 )))
 SET config=%~4
 
@@ -60,7 +60,7 @@ SET config=%~4
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%" "%config%"
-IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 
 
 :: ============================
@@ -73,7 +73,7 @@ IF EXIST CMakeCache.txt DEL CMakeCache.txt
 
 
 CALL %current_dir%setup_vs.bat "%generator%" "%arch%" "%toolset%" 
-IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 
 :: Get the clang compiler if we ask for Clang
 IF "%toolset%" EQU "Clang" (
@@ -85,7 +85,7 @@ CALL :PRINT_HEADER "CMake %current_dir%../../.. -G NMake Makefiles"
 ECHO CMake generation ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL CMake "%current_dir%../../.." -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=%config%
-IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
 POPD
