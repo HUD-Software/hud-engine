@@ -1,4 +1,4 @@
-@ECHO OFF
+:: @ECHO OFF
 
 :: Print the help if requested
 IF /I "%~1" EQU "-help" GOTO PRINT_HELP
