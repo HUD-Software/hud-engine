@@ -1,4 +1,5 @@
 @ECHO OFF
+SETLOCAL
 
 :: ============================
 ::  Check [generator] parameter
@@ -65,7 +66,7 @@ SET target=%~5
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%" "%config%"
-IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
 
 :: ==========================================
 ::  Build the HUDEngine Makefile using nmake
@@ -84,13 +85,12 @@ SET VERBOSE=1
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL nmake %target%
-IF ERRORLEVEL 1 (
-    ECHO Exit with %ERRORLEVEL%
-    EXIT /B %ERRORLEVEL%
-)
+IF ERRORLEVEL 1 GOTO STOP
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
+
+:STOP
 EXIT /B %ERRORLEVEL%
 
 :: =====================
