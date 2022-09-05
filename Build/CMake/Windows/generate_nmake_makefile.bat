@@ -9,7 +9,7 @@ ECHO.
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )) 
 SET generator=%~1
 
@@ -24,7 +24,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))))
 SET arch=%~2
 
@@ -37,7 +37,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 set toolset=%~3
 
@@ -51,7 +51,7 @@ ECHO.
 ECHO Error: [config] is invalid : "%~4"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))
 SET config=%~4
 
