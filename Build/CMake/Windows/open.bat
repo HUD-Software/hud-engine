@@ -12,7 +12,7 @@ ECHO.
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 SET generator=%~1
 
@@ -28,7 +28,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))))
 SET arch=%~2
 
@@ -41,13 +41,13 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 set toolset=%~3
 
 IF /I "%generator%" EQU "Visual Studio 2019" GOTO SETUP_VS_2019_ENV_VAR
 IF /I "%generator%" EQU "Visual Studio 2022" GOTO SETUP_VS_2022_ENV_VAR
-EXIT /B 1
+EXIT 1
 
 :: ==========================
 ::  Setup Visual Studio 2019
@@ -57,7 +57,7 @@ SET VSDEVENV="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\C
 IF EXIST %VSDEVENV% ( GOTO OPEN_VISUAL_STUDIO )
 SET VSDEVENV="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
 IF EXIST %VSDEVENV% ( GOTO OPEN_VISUAL_STUDIO )
-EXIT /B 1
+EXIT 1
 
 :: ==========================
 ::  Setup Visual Studio 2022
@@ -67,7 +67,7 @@ SET VSDEVENV="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7
 IF EXIST %VSDEVENV% ( GOTO OPEN_VISUAL_STUDIO )
 SET VSDEVENV="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe"
 IF EXIST %VSDEVENV% ( GOTO OPEN_VISUAL_STUDIO )
-EXIT /B 1
+EXIT 1
 
 
 :: ============================
@@ -78,7 +78,7 @@ SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%"
 IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 START "" %VSDEVENV% "%build_dir%\HUDEngine.sln"
-EXIT /B %ERRORLEVEL%
+EXIT %ERRORLEVEL%
 
 :: ================
 ::  Print the help
@@ -102,4 +102,4 @@ ECHO     * For Visual Studio 2019 and NMake Visual Studio 2019 generator
 ECHO       * V142
 ECHO       * Clang
 ECHO.
-EXIT /B 0
+EXIT 0
