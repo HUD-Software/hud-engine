@@ -89,7 +89,7 @@ IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
 POPD
-EXIT %ERRORLEVEL%
+EXIT /B %ERRORLEVEL%
 
 
 :: =====================
