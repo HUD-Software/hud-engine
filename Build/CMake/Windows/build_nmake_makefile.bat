@@ -84,7 +84,7 @@ SET VERBOSE=1
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL nmake %target%
-EXIT /B %ERRORLEVEL%
+EXIT %ERRORLEVEL%
 
 
 :: =====================

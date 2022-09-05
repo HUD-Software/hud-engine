@@ -80,7 +80,7 @@ CALL :PRINT_HEADER "msbuild HUDEngine.sln /p:Configuration=%config% %target% -ma
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL msbuild HUDEngine.sln /p:Configuration=%config% %target% -maxcpucount
-EXIT /B %ERRORLEVEL%
+EXIT %ERRORLEVEL%
 
 :: =====================
 :: Print command header
