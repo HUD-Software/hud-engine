@@ -85,15 +85,7 @@ CALL :PRINT_HEADER "CMake %current_dir%../../.. -G NMake Makefiles"
 ECHO CMake generation ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL CMake "%current_dir%../../.." -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=%config%
-IF ERRORLEVEL 1 (
-    ECHO Exit with %ERRORLEVEL%
-    EXIT /B %ERRORLEVEL%
-)
-ECHO.
-ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
-POPD
 EXIT /B %ERRORLEVEL%
-
 
 :: =====================
 :: Print command header

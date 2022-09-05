@@ -1,5 +1,4 @@
 @ECHO OFF
-SETLOCAL
 
 :: ======================
 ::  Build HUDEngine

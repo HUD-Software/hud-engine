@@ -71,13 +71,6 @@ CALL :PRINT_HEADER "CMake %current_dir%../../.. -G %cmake_generator% -A %cmake_a
 ECHO CMake generation ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL CMake "%current_dir%../../.." -G "%cmake_generator%" -A "%cmake_arch%" -T "%cmake_toolset%"
-IF ERRORLEVEL 1 (
-    ECHO Exit with %ERRORLEVEL%
-    EXIT /B %ERRORLEVEL%
-)
-ECHO.
-ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
-POPD
 EXIT /B %ERRORLEVEL%
 
 :: =====================

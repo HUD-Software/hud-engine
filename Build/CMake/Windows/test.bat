@@ -78,11 +78,7 @@ IF /I "%test%" EQU "" (
 ) ELSE (
     CALL CTest -C %config% -R %test% --verbose
 )
-IF ERRORLEVEL 1 (
-    ECHO Exit with %ERRORLEVEL%
-    EXIT /B %ERRORLEVEL%
-)
-POPD
+EXIT /B %ERRORLEVEL%
 
 :: ================
 ::  Print the help
