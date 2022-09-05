@@ -5,7 +5,7 @@
 :: ======================
 IF /I "%~1" EQU "Visual Studio 2019" (
     CALL %~dp0build_msvc.bat "%~1" "%~2" "%~3" "%~4" "%~5"
-    EXIT %ERRORLEVEL%
+    EXIT /B %ERRORLEVEL%
 )
 
 IF /I "%~1" EQU "Visual Studio 2022" (
