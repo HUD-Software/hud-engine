@@ -14,7 +14,7 @@ ECHO.
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))) 
 SET generator=%~1
 
@@ -29,7 +29,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))))
 SET arch=%~2
 
@@ -42,7 +42,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 set toolset=%~3
 
@@ -57,7 +57,7 @@ ECHO.
 ECHO Error: [config] is invalid : "%~4"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))
 SET config=%~4
 
@@ -75,11 +75,13 @@ IF /I "%build_dir%" EQU "" EXIT /B 1
 PUSHD "%build_dir%"
 IF /I "%test%" EQU "" (
     CALL CTest -C %config% --verbose
+    IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 ) ELSE (
     CALL CTest -C %config% -R %test% --verbose
+    IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 )
 POPD
-EXIT /B %errorlevel%
+EXIT %ERRORLEVEL%
 
 :: ================
 ::  Print the help
@@ -112,4 +114,4 @@ ECHO     * DebugOptimized
 ECHO.
 ECHO   [test] Run tests matching regular expression. Run all test if empty.
 ECHO.
-EXIT /B 0
+EXIT 0
