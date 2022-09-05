@@ -67,20 +67,20 @@ SET target=/target:%~5
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%" "%config%"
-IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
 
 :: ======================================
 ::  Build the HUDEngine.sln using MSBuild
 :: ======================================
 PUSHD "%build_dir%"
 where /q msbuild
-IF ERRORLEVEL 1 CALL %current_dir%setup_vs.bat "%generator%" "%arch%" "%toolset%"
+IF NOT ERRORLEVEL 0 CALL %current_dir%setup_vs.bat "%generator%" "%arch%" "%toolset%"
 
 CALL :PRINT_HEADER "msbuild HUDEngine.sln /p:Configuration=%config% %target% -maxcpucount"
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL msbuild HUDEngine.sln /p:Configuration=%config% %target% -maxcpucount
-IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
