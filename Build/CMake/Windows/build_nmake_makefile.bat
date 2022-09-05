@@ -1,5 +1,4 @@
 @ECHO OFF
-SETLOCAL
 
 :: ============================
 ::  Check [generator] parameter
@@ -10,7 +9,7 @@ ECHO.
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )) 
 SET generator=%~1
 
@@ -25,7 +24,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))))
 SET arch=%~2
 
@@ -38,7 +37,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 set toolset=%~3
 
@@ -52,7 +51,7 @@ ECHO.
 ECHO Error: [config] is invalid : "%~4"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))
 SET config=%~4
 
@@ -66,7 +65,7 @@ SET target=%~5
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%" "%config%"
-IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 
 :: ==========================================
 ::  Build the HUDEngine Makefile using nmake
@@ -76,8 +75,9 @@ PUSHD "%build_dir%"
 where /q nmake
 IF ERRORLEVEL 1 (
     IF /I "%generator%" EQU "NMake Visual Studio 2019" CALL %current_dir%\setup_vs.bat "Visual Studio 2019" "%arch%" "%toolset%"
+    IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
     IF /I "%generator%" EQU "NMake Visual Studio 2022" CALL %current_dir%\setup_vs.bat "Visual Studio 2022" "%arch%" "%toolset%"
-    IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
+    IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 )
 
 CALL :PRINT_HEADER "nmake %target%"
@@ -85,12 +85,11 @@ SET VERBOSE=1
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL nmake %target%
-set build_success=%ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
-ECHO. build_nmake return %build_success%
-EXIT /B %build_success%
+EXIT %ERRORLEVEL%
 
 :: =====================
 :: Print command header
@@ -108,7 +107,7 @@ ECHO ARCHITECTURE = %arch%
 ECHO TOOLSET = %toolset%
 ECHO CMD = %~1
 ECHO.
-EXIT /B 0
+EXIT 0
 
 :: ================
 ::  Print the help
@@ -138,4 +137,4 @@ ECHO     * DebugOptimized
 ECHO.
 ECHO   [target] (Optional) Select the target to build. This correspond to the generator target.
 ECHO.
-EXIT /B 0
+EXIT 0
