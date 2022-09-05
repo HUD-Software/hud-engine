@@ -14,7 +14,7 @@ ECHO.
 ECHO Error: [visual_studio] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))) 
 SET visual_studio=%~1
 
@@ -29,7 +29,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))))
 SET arch=%~2
 
@@ -42,7 +42,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 set toolset=%~3
 
@@ -77,7 +77,7 @@ IF /I "%visual_studio%" EQU "Visual Studio 2019"  GOTO SETUP_VS_2019_ENV_VAR
 IF /I "%visual_studio%" EQU "Visual Studio 2022"  GOTO SETUP_VS_2022_ENV_VAR
 IF /I "%visual_studio%" EQU "NMake Visual Studio 2019" GOTO SETUP_VS_2019_ENV_VAR
 IF /I "%visual_studio%" EQU "NMake Visual Studio 2022" GOTO SETUP_VS_2022_ENV_VAR
-EXIT /B 0
+EXIT 1
 
 :: ==========================
 ::  Setup Visual Studio 2019
@@ -88,7 +88,7 @@ IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT ) 
 ECHO No Visual Studio 2019 installation found
-EXIT /B 1
+EXIT 1
 
 :: ==========================
 ::  Setup Visual Studio 2022
@@ -101,7 +101,7 @@ IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 SET VSDEVCMD="C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"
 IF EXIST %VSDEVCMD% ( GOTO VSDEVCMD_SCRIPT )
 ECHO No Visual Studio 2022 installation found
-EXIT /B 1
+EXIT 1
 
 :: ============================================
 :: Call VsDevCmd.bat set in %$VSDEVCMD%
@@ -119,7 +119,7 @@ ECHO HOST_ARCH="%host_arch%"
 ECHO CMD = %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
 ECHO. 
 CALL %VSDEVCMD% -no_logo -arch=%architecture% %toolset_arg% -host_arch=%host_arch%
-EXIT /B %ERRORLEVEL%
+EXIT %ERRORLEVEL%
 
 :: ================
 ::  Print the help
@@ -145,4 +145,4 @@ ECHO     * For Visual Studio 2019 generator
 ECHO       * V142
 ECHO       * Clang
 ECHO.
-EXIT /B 0
+EXIT 0
