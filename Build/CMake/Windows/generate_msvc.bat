@@ -1,5 +1,4 @@
 @ECHO OFF
-SETLOCAL
 
 :: ============================
 ::  Check [generator] parameter
@@ -76,7 +75,6 @@ IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
 POPD
-ENDLOCAL
 EXIT %ERRORLEVEL%
 
 :: =====================
