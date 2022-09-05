@@ -86,7 +86,7 @@ ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD
 ECHO. build_msvc return %build_success%
-EXIT /B %build_success%
+EXIT %build_success%
 
 :: =====================
 :: Print command header
