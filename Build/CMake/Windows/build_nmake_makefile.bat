@@ -1,4 +1,5 @@
 @ECHO OFF
+SETLOCAL
 
 :: ============================
 ::  Check [generator] parameter
