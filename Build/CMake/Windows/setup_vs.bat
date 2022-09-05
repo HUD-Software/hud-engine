@@ -145,4 +145,4 @@ ECHO     * For Visual Studio 2019 generator
 ECHO       * V142
 ECHO       * Clang
 ECHO.
-EXIT 0
+EXIT /B 0
