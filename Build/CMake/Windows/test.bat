@@ -81,7 +81,6 @@ IF /I "%test%" EQU "" (
     IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 )
 POPD
-EXIT %ERRORLEVEL%
 
 :: ================
 ::  Print the help
@@ -114,4 +113,4 @@ ECHO     * DebugOptimized
 ECHO.
 ECHO   [test] Run tests matching regular expression. Run all test if empty.
 ECHO.
-EXIT 0
+EXIT /B 0
