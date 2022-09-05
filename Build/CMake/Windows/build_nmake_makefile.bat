@@ -73,10 +73,14 @@ IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 PUSHD "%build_dir%"
 where /q nmake
 IF ERRORLEVEL 1 (
-    IF /I "%generator%" EQU "NMake Visual Studio 2019" CALL %current_dir%\setup_vs.bat "Visual Studio 2019" "%arch%" "%toolset%"
-    IF ERRORLEVEL 1 EXIT /B 1
-    IF /I "%generator%" EQU "NMake Visual Studio 2022" CALL %current_dir%\setup_vs.bat "Visual Studio 2022" "%arch%" "%toolset%"
-    IF ERRORLEVEL 1 EXIT /B 1
+    IF /I "%generator%" EQU "NMake Visual Studio 2019" (
+        CALL %current_dir%\setup_vs.bat "Visual Studio 2019" "%arch%" "%toolset%"
+        IF ERRORLEVEL 1 EXIT /B 1
+    )
+    IF /I "%generator%" EQU "NMake Visual Studio 2022" (
+        CALL %current_dir%\setup_vs.bat "Visual Studio 2022" "%arch%" "%toolset%"
+        IF ERRORLEVEL 1 EXIT /B 1
+    )
 )
 
 CALL :PRINT_HEADER "nmake %target%"
