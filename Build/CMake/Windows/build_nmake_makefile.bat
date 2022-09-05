@@ -70,7 +70,6 @@ IF ERRORLEVEL 1 EXIT %ERRORLEVEL%
 :: ==========================================
 ::  Build the HUDEngine Makefile using nmake
 :: ==========================================
-:BUILD_NMAKE
 PUSHD "%build_dir%"
 where /q nmake
 IF ERRORLEVEL 1 (
@@ -107,7 +106,7 @@ ECHO ARCHITECTURE = %arch%
 ECHO TOOLSET = %toolset%
 ECHO CMD = %~1
 ECHO.
-EXIT 0
+EXIT /B 0
 
 :: ================
 ::  Print the help
@@ -137,4 +136,4 @@ ECHO     * DebugOptimized
 ECHO.
 ECHO   [target] (Optional) Select the target to build. This correspond to the generator target.
 ECHO.
-EXIT 0
+EXIT /B 0
