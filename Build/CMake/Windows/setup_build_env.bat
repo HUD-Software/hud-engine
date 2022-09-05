@@ -42,7 +42,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT 1
+EXIT /B 1
 ))
 set toolset=%~3
 
