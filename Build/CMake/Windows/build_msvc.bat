@@ -102,7 +102,7 @@ ECHO ARCHITECTURE = %arch%
 ECHO TOOLSET = %toolset%
 ECHO CMD = %~1
 ECHO.
-EXIT 0
+EXIT /B 0
 
 
 :: ================
@@ -133,4 +133,4 @@ ECHO     * DebugOptimized
 ECHO.
 ECHO   [target] (Optional) Select the target to build. This correspond to the generator target.
 ECHO.
-EXIT 0
+EXIT /B 0
