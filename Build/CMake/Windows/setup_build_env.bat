@@ -14,7 +14,7 @@ ECHO.
 ECHO Error: [generator] is invalid : "%~1"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))) 
 SET generator=%~1
 
@@ -29,7 +29,7 @@ ECHO.
 ECHO Error: [arch] is invalid : "%~2"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))))
 SET arch=%~2
 
@@ -42,7 +42,7 @@ ECHO.
 ECHO Error: [toolset] is invalid : "%~3"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 ))
 set toolset=%~3
 
@@ -61,7 +61,7 @@ ECHO.
 ECHO Error: [config] is invalid : "%~4"
 ECHO.
 CALL:PRINT_HELP
-EXIT /B 1
+EXIT 1
 )))) 
 SET config=%~4
 
@@ -75,7 +75,7 @@ SET build_dir=%current_dir%..\Generated\%generator%\%toolset%\%arch%\%config%\
 SET build_dir=%current_dir%..\Generated\%generator%\%toolset%\%arch%\
 )
 IF NOT EXIST "%build_dir%" MD "%build_dir%"
-EXIT /B 0 
+EXIT %ERRORLEVEL%
 
 :: ================
 ::  Print the help
@@ -106,4 +106,4 @@ ECHO     * Debug
 ECHO     * Release
 ECHO     * DebugOptimized
 ECHO.
-EXIT /B 0
+EXIT 0
