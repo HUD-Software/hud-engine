@@ -65,7 +65,7 @@ SET target=%~5
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%" "%config%"
-IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 
 :: ==========================================
 ::  Build the HUDEngine Makefile using nmake
@@ -74,9 +74,9 @@ PUSHD "%build_dir%"
 where /q nmake
 IF ERRORLEVEL 1 (
     IF /I "%generator%" EQU "NMake Visual Studio 2019" CALL %current_dir%\setup_vs.bat "Visual Studio 2019" "%arch%" "%toolset%"
-    IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+    IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
     IF /I "%generator%" EQU "NMake Visual Studio 2022" CALL %current_dir%\setup_vs.bat "Visual Studio 2022" "%arch%" "%toolset%"
-    IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+    IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 )
 
 CALL :PRINT_HEADER "nmake %target%"
@@ -84,7 +84,10 @@ SET VERBOSE=1
 ECHO Build ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL nmake %target%
-IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 (
+    ECHO Exit with %ERRORLEVEL%
+    EXIT /B %ERRORLEVEL%
+)
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^< Build
 POPD

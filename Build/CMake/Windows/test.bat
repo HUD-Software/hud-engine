@@ -75,10 +75,12 @@ IF /I "%build_dir%" EQU "" EXIT /B 1
 PUSHD "%build_dir%"
 IF /I "%test%" EQU "" (
     CALL CTest -C %config% --verbose
-    IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
 ) ELSE (
     CALL CTest -C %config% -R %test% --verbose
-    IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+)
+IF ERRORLEVEL 1 (
+    ECHO Exit with %ERRORLEVEL%
+    EXIT /B %ERRORLEVEL%
 )
 POPD
 

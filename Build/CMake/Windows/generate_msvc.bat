@@ -47,7 +47,7 @@ set toolset=%~3
 :: ============================
 SET current_dir=%~dp0
 CALL %current_dir%setup_build_env.bat "%generator%" "%arch%" "%toolset%"
-IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 EXIT /B %ERRORLEVEL%
 
 :: ===================================
 ::  Generate a Visual Studio solution
@@ -71,7 +71,10 @@ CALL :PRINT_HEADER "CMake %current_dir%../../.. -G %cmake_generator% -A %cmake_a
 ECHO CMake generation ^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>^>
 ECHO.
 CALL CMake "%current_dir%../../.." -G "%cmake_generator%" -A "%cmake_arch%" -T "%cmake_toolset%"
-IF NOT ERRORLEVEL 0 EXIT /B %ERRORLEVEL%
+IF ERRORLEVEL 1 (
+    ECHO Exit with %ERRORLEVEL%
+    EXIT /B %ERRORLEVEL%
+)
 ECHO.
 ECHO ^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^<^ CMake generation
 POPD
