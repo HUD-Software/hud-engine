@@ -51,7 +51,7 @@ jobs:
       - name: Build Visual Studio solution
         shell: pwsh
         run: |
-          if(${{ env.CONTINUE }}) {
+          if("${{ env.CONTINUE }}" -eq "true") {
             cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
             if($LASTEXITCODE) {
               $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=visualstudio&logoColor=white"
@@ -68,7 +68,7 @@ jobs:
       - name: Test Visual Studio solution
         shell: pwsh
         run: |
-          if(${{ env.CONTINUE }}) {
+          if("${{ env.CONTINUE }}" -eq "true") {
             cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
             if($LASTEXITCODE) { 
               $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=cachet&logoColor=white"
