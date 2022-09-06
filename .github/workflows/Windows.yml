@@ -91,14 +91,10 @@ jobs:
         with:
           name: os-layer-status
           path: Status/OSLayer/*.svg
-      - name: Stop
+        
+      - name: Finalize
         shell: pwsh
-        run: |
-          if("${{ env.last_step_succedded }}" -eq "True") {
-            EXIT 0
-          } else {
-            EXIT 1
-          }
+        run: EXIT "${{ env.last_step_succedded }}" -eq "True"
 
   push-status:
     runs-on: ubuntu-latest
