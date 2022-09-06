@@ -95,9 +95,9 @@ jobs:
         shell: pwsh
         run: |
           if("${{ env.last_step_succedded }}" -eq "True") {
-            EXIT 1
-          } else {
             EXIT 0
+          } else {
+            EXIT 1
           }
 
   push-status:
