@@ -12,6 +12,8 @@ jobs:
         config: [Debug,Release]
         arch: [Win32,Win64,ARM32,ARM64]
         toolset: [V142, Clang]
+    env:
+      GITHUB_ENV=env_var
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
