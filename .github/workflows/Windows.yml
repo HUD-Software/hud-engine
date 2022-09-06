@@ -72,7 +72,7 @@ jobs:
         continue-on-error: true
         shell: pwsh
         run: |
-          if("${{ env.continue }}" -eq "True") {
+          if("${{ env.last_step_succedded }}" -eq "True") {
             cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
             if($LASTEXITCODE) { 
               $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=cachet&logoColor=white"
@@ -94,7 +94,7 @@ jobs:
         
       - name: Finalize
         shell: pwsh
-        run: EXIT "${{ env.last_step_succedded }}" -eq "True"
+        run: EXIT "${{ env.last_step_succedded }}" -eq "False"
 
   push-status:
     runs-on: ubuntu-latest
