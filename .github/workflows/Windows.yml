@@ -52,7 +52,7 @@ jobs:
       - name: Build Visual Studio solution
         shell: pwsh
         run: |
-          #if(${{ env.continue }} -eq $true) {
+          if(${{ env.continue }} -eq "True") {
             cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
             if($LASTEXITCODE) {
               $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=visualstudio&logoColor=white"
@@ -65,11 +65,11 @@ jobs:
           } else {
               $url = "https://img.shields.io/badge/${{matrix.config}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
               Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-build.svg" -Force )
-         # }
+          }
       - name: Test Visual Studio solution
         shell: pwsh
         run: |
-          if(${{ env.continue }} -eq $true) {
+          if(${{ env.continue }} -eq "True") {
             cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
             if($LASTEXITCODE) { 
               $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=cachet&logoColor=white"
