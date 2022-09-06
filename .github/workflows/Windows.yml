@@ -40,11 +40,11 @@ jobs:
           if($LASTEXITCODE) { 
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Fail-red.svg?logo=cmake&logoColor=white"
             Invoke-WebRequest $url -OutFile ( New-Item -Path $svg_path -Force )
-            $continue=$false
+            [bool] $continue=$false
           } else {
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Success-green.svg?logo=cmake&logoColor=white"
             Invoke-WebRequest $url -OutFile ( New-Item -Path $svg_path -Force )
-            $continue=$true
+            [bool] $continue=$true
           }
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
@@ -56,7 +56,7 @@ jobs:
             if($LASTEXITCODE) {
               $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=visualstudio&logoColor=white"
               Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-build.svg" -Force )
-              $continue=$false
+              [bool] $continue=$false
             } else {
               $url = "https://img.shields.io/badge/${{matrix.config}}-Success-green.svg?logo=visualstudio&logoColor=white"
               Invoke-WebRequest $url -OutFile ( New-Item -Path "Status/OSLayer/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-build.svg" -Force )
