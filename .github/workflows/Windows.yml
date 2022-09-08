@@ -29,7 +29,6 @@ jobs:
             Start-Process -NoNewWindow -FilePath "$vs_setup_exe" -ArgumentList "modify --add Microsoft.VisualStudio.Component.VC.Tools.ARM64 --installPath $vs_install_dir --passive --norestart"
           }
       - name: Generate Visual Studio solution
-        #continue-on-error: true
         shell: pwsh
         run: |
           cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{matrix.config}}
@@ -52,7 +51,6 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
       - name: Build Visual Studio solution
         if: always()
-        #continue-on-error: true
         shell: pwsh
         run: |
           if("${{ env.last_step_succedded }}" -eq "True") {
@@ -71,7 +69,6 @@ jobs:
           }
       - name: Test Visual Studio solution
         if: always()
-        #continue-on-error: true
         shell: pwsh
         run: |
           if("${{ env.last_step_succedded }}" -eq "True") {
