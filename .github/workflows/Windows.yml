@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Current source
+        run: pwd
       - name: Cache repository
         uses: actions/cache@v3
         with:
