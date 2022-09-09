@@ -47,6 +47,11 @@ jobs:
         shell: pwsh
         run: |
           cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }}
+      - name: Save generations
+        uses: actions/cache@v3
+        with:
+          path: Build\\CMake\\Generated\\**
+          key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-cache
       - name: Create Badge
         if: always()
         shell: pwsh
