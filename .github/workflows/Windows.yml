@@ -280,6 +280,11 @@ jobs:
         with:
           name: os-layer-generation-status
           path: Status/OSLayer/Generations/
+      - name: Download build status
+        uses: actions/download-artifact@v3
+        with:
+          name: os-layer-build-status
+          path: Status/OSLayer/Build/
       - name: Push to status web-site
         uses: cpina/github-action-push-to-another-repository@main
         env:
