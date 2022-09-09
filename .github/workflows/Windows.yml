@@ -17,7 +17,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./**
-          key: repository-cache
+          key: clone-cache
   list:
     runs-on: windows-latest
     needs: [clone]
@@ -26,7 +26,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./**
-          key: repository-cache
+          key: clone-cache
       - name: Print content
         run: | 
           ls -R
