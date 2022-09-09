@@ -3,7 +3,7 @@ name: Windows
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  clone:
+  prepare:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
@@ -15,6 +15,7 @@ jobs:
           key: clone-cache
   generate_vs:
     runs-on: windows-latest
+    name: Generations Visual Studio 
     strategy:
       fail-fast: false
       matrix:
@@ -73,6 +74,7 @@ jobs:
           path: Status/OSLayer/Generations/*.svg
 
   generate_nmake:
+    name: Generations NMake Makefiles
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -111,7 +113,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: Build\\CMake\\Generated\\**
-          key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-${{ matrix.config }}-cache
+          key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-${{ matrix.config }}-generation-cache
       - name: Create Badge
         if: always()
         shell: pwsh
@@ -131,6 +133,62 @@ jobs:
         with:
           name: os-layer-generation-status
           path: Status/OSLayer/Generations/*.svg
+
+  build_vs:
+    name: Builds Visual Studio
+    runs-on: windows-latest
+    needs: [generate_vs]
+    strategy:
+        fail-fast: false
+        matrix:
+          generator: [Visual Studio 2022]
+          config: [Debug,Release]
+          arch: [Win32,Win64,ARM32,ARM64]
+          toolset: [V142, Clang]
+    if: always()
+    steps:
+      - name: Retrieves repository
+        uses: actions/cache@v3
+        with:
+          path: ./**
+          key: clone-cache
+      - name: Retrieves generation
+        uses: actions/cache@v3
+        with:
+          path: Build\\CMake\\Generated\\**
+          key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-generation-cache
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Build
+        id: build
+        shell: pwsh
+        run: |
+          cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+      - name: Save binaries
+        uses: actions/cache@v3
+        with:
+          path: Build\\CMake\\Generated\\${{ matrix.generator }}\\${{ matrix.toolset }\\${{ matrix.arch }}\\**
+          key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-${{ matrix.config }}-build-cache
+      - name: Create Badge
+        if: always()
+        shell: pwsh
+        run: |
+          $svg_path="Status/OSLayer/Build/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-build.svg"
+          if('${{steps.build.outcome}}' -eq 'success') {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=visualstudio&logoColor=white"
+          } elseif('${{steps.build.outcome}}' -eq 'failure') {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Success-green.svg?logo=visualstudio&logoColor=white"
+          } else {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
+          }
+          Invoke-WebRequest $url -OutFile ( New-Item -Path $svg_path -Force )
+      - name: Save badges
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: os-layer-build-status
+          path: Status/OSLayer/Build/*.svg
+
 
   push_status:
     runs-on: ubuntu-latest

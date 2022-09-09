@@ -8,6 +8,6 @@
         "editor.renderWhitespace": "boundary",
         "editor.fontSize": 12,
         "terminal.integrated.fontSize": 12,
-        "cmake.buildDirectory": "${workspaceFolder}/../Build/CMake/Generated/VSCodeBuild",
+        "cmake.buildDirectory": "${workspaceFolder}/Build/CMake/Generated/VSCodeBuild",
     },
 }
