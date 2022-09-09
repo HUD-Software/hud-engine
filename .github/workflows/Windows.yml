@@ -13,7 +13,7 @@ jobs:
         with:
           path: ./**
           key: clone-cache
-  generate_vs_2022:
+  generate_vs:
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -62,7 +62,67 @@ jobs:
           } elseif('${{steps.generation.outcome}}' -eq 'failure') {
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Success-green.svg?logo=cmake&logoColor=white"
           } else {
-            $url = "https://img.shields.io/badge/${{matrix.config}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
+            $url = "https://img.shields.io/badge/${{matrix.arch}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
+          }
+          Invoke-WebRequest $url -OutFile ( New-Item -Path $svg_path -Force )
+      - name: Save badges
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: os-layer-generation-status
+          path: Status/OSLayer/Generations/*.svg
+
+  generate_nmake:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        generator: [NMake Visual Studio 2022]
+        config: [Debug,Release]
+        arch: [Win32,Win64,ARM32,ARM64]
+        toolset: [V142, Clang]
+    needs: [clone]
+    steps:
+      - name: Retrieves repository
+        uses: actions/cache@v3
+        with:
+          path: ./**
+          key: clone-cache
+      - name: Install Visual Studio Components
+        shell: pwsh
+        run: |
+          if("${{ matrix.arch }}" -eq "ARM32") {
+            $vs_setup_exe="C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe"
+            $vs_install_dir="C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise"
+            Start-Process -NoNewWindow -FilePath "$vs_setup_exe" -ArgumentList "modify --add Microsoft.VisualStudio.Component.VC.Tools.ARM --installPath $vs_install_dir --passive --norestart"
+          }
+          elseif("${{ matrix.arch }}" -eq "ARM64") {
+            $vs_setup_exe="C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe"
+            $vs_install_dir="C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise"
+            Start-Process -NoNewWindow -FilePath "$vs_setup_exe" -ArgumentList "modify --add Microsoft.VisualStudio.Component.VC.Tools.ARM64 --installPath $vs_install_dir --passive --norestart"
+          }
+      - name: Generate Visual Studio 2022 solution
+        id: generation
+        if: always()
+        shell: pwsh
+        run: |
+          cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+      - name: Save generations
+        uses: actions/cache@v3
+        with:
+          path: Build\\CMake\\Generated\\**
+          key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-${{ matrix.config }}-cache
+      - name: Create Badge
+        if: always()
+        shell: pwsh
+        run: |
+          $svg_path="Status/OSLayer/Generations/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-generation.svg"
+          if('${{steps.generation.outcome}}' -eq 'success') {
+            $url = "https://img.shields.io/badge/${{matrix.arch}}-Fail-red.svg?logo=cmake&logoColor=white"
+          } elseif('${{steps.generation.outcome}}' -eq 'failure') {
+            $url = "https://img.shields.io/badge/${{matrix.arch}}-Success-green.svg?logo=cmake&logoColor=white"
+          } else {
+            $url = "https://img.shields.io/badge/${{matrix.arch}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
           }
           Invoke-WebRequest $url -OutFile ( New-Item -Path $svg_path -Force )
       - name: Save badges
@@ -74,14 +134,14 @@ jobs:
 
   push_status:
     runs-on: ubuntu-latest
-    needs: [generate_vs_2022]
+    needs: [generate_vs_2022, generate_nmake]
     if: always()
     steps:
       - name: Download generation status
         uses: actions/download-artifact@v3
         with:
           name: os-layer-generation-status
-          path: Status/OSLayer/Generations
+          path: Status/OSLayer/Generations/
       - name: Push to status web-site
         uses: cpina/github-action-push-to-another-repository@main
         env:
