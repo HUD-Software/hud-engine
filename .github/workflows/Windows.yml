@@ -20,7 +20,7 @@ jobs:
       - name: Retrieves repository
         uses: actions/cache@v3
         with:
-          path: .
+          path: **
           key: repository-cache
       - name: Print content
         run: | 
