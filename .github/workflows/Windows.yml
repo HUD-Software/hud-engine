@@ -72,6 +72,27 @@ jobs:
           name: os-layer-generation-status
           path: Status/OSLayer/Generations/*.svg
 
+  push_status:
+    runs-on: windows-latest
+    if: always()
+    steps:
+      - name: Download generation status
+        uses: actions/download-artifact@v3
+        with:
+          name: os-layer-generation-status
+          path: Status/OSLayer/Generations
+      - name: Push to status web-site
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'Status/OSLayer/Generations'
+          target-directory: 'Status/OSLayer/Generations'
+          destination-github-username: 'hud-software'
+          destination-repository-name: 'hud-engine-status'
+          user-email: ci-oslayer
+          target-branch: main
+
   # build_and_test:
   #   runs-on: windows-latest
   #   strategy:
