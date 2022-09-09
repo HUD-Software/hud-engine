@@ -279,6 +279,11 @@ jobs:
           toolset: [V142, Clang]
     if: always()
     steps:
+      - name: Retrieves repository
+        uses: actions/cache@v3
+        with:
+          path: ./**
+          key: clone-cache
       - name: Retrieves binaries
         uses: actions/cache@v3
         with:
@@ -325,6 +330,11 @@ jobs:
           toolset: [V142, Clang]
     if: always()
     steps:
+      - name: Retrieves repository
+        uses: actions/cache@v3
+        with:
+          path: ./**
+          key: clone-cache
       - name: Retrieves binaries
         uses: actions/cache@v3
         with:
