@@ -15,6 +15,7 @@ jobs:
           key: repository-cache
   list:
     runs-on: windows-latest
+    needs: [clone]
     steps:
       - name: Retrieves repository
         uses: actions/cache@v3
