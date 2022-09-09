@@ -74,6 +74,7 @@ jobs:
 
   push_status:
     runs-on: windows-latest
+    needs: [generate_vs_2022]
     if: always()
     steps:
       - name: Download generation status
