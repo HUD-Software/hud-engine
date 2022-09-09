@@ -167,7 +167,7 @@ jobs:
       - name: Save binaries
         uses: actions/cache@v3
         with:
-          path: Build\\CMake\\Generated\\${{ matrix.generator }}\\${{ matrix.toolset }\\${{ matrix.arch }}\\**
+          path: Build\\CMake\\Generated\\${{ matrix.generator }}\\${{ matrix.toolset }}\\${{ matrix.arch }}\\**
           key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-${{ matrix.config }}-build-cache
       - name: Create Badge
         if: always()
