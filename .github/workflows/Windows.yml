@@ -21,7 +21,7 @@ jobs:
   #----------------------------
   generate_vs:
     runs-on: windows-latest
-    name: Generations Visual Studio 
+    name: Generation
     strategy:
       fail-fast: false
       matrix:
@@ -52,8 +52,7 @@ jobs:
         id: generation
         if: always()
         shell: pwsh
-        run: |
-          cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }}
+        run: cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }}          
       - name: Save generations
         uses: actions/cache@v3
         with:
@@ -85,7 +84,7 @@ jobs:
   #
   #----------------------------
   generate_nmake:
-    name: Generations NMake Makefiles
+    name: Generation
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -118,8 +117,7 @@ jobs:
         id: generation
         if: always()
         shell: pwsh
-        run: |
-          cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+        run: cmd.exe /c Build\\CMake\\Windows\\generate.bat "${{matrix.generator}}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}          
       - name: Save generations
         uses: actions/cache@v3
         with:
@@ -151,7 +149,7 @@ jobs:
   #
   #----------------------------
   build_vs:
-    name: Builds Visual Studio
+    name: Build
     runs-on: windows-latest
     needs: [generate_vs]
     strategy:
@@ -178,8 +176,7 @@ jobs:
       - name: Build
         id: build
         shell: pwsh
-        run: |
-          cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+        run: cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
       - name: Save binaries
         uses: actions/cache@v3
         with:
@@ -211,7 +208,7 @@ jobs:
   #
   #----------------------------
   build_nmake:
-    name: Builds NMake Makefiles
+    name: Build
     runs-on: windows-latest
     needs: [generate_nmake]
     strategy:
@@ -238,8 +235,7 @@ jobs:
       - name: Build
         id: build
         shell: pwsh
-        run: |
-          cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+        run: cmd.exe /c Build\\CMake\\Windows\\build.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
       - name: Save binaries
         uses: actions/cache@v3
         with:
@@ -267,6 +263,98 @@ jobs:
 
   #---------------------------
   #
+  # Visual Studio Tests
+  #
+  #----------------------------
+  test_vs:
+    name: Test
+    runs-on: windows-latest
+    needs: [build_vs]
+    strategy:
+        fail-fast: false
+        matrix:
+          generator: [Visual Studio 2022]
+          config: [Debug,Release]
+          arch: [Win32,Win64,ARM32,ARM64]
+          toolset: [V142, Clang]
+    if: always()
+    steps:
+      - name: Retrieves binaries
+        uses: actions/cache@v3
+        with:
+          path: Build\\CMake\\Generated\\${{ matrix.generator }}\\${{ matrix.toolset }}\\${{ matrix.arch }}\\${{ matrix.config }}\\**
+          key: vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-${{ matrix.config }}-build-cache
+      - name: Test
+        shell: pwsh
+        run: cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+      - name: Create Badge
+        if: always()
+        shell: pwsh
+        run: |
+          $svg_path="Status/OSLayer/Test/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-test.svg"
+          if('${{steps.build.outcome}}' -eq 'success') {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=cachet&logoColor=white"
+          } elseif('${{steps.build.outcome}}' -eq 'failure') {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Success-green.svg?logo=cachet&logoColor=white"
+          } else {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
+          }
+          Invoke-WebRequest $url -OutFile ( New-Item -Path $svg_path -Force )
+      - name: Save badges
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: os-layer-test-status
+          path: Status/OSLayer/Test/*.svg
+
+  #---------------------------
+  #
+  # NMake Makefile Tests
+  #
+  #----------------------------
+  test_nmake:
+    name: Test
+    runs-on: windows-latest
+    needs: [build_nmake]
+    strategy:
+        fail-fast: false
+        matrix:
+          generator: [NMake Visual Studio 2022]
+          config: [Debug,Release]
+          arch: [Win32,Win64,ARM32,ARM64]
+          toolset: [V142, Clang]
+    if: always()
+    steps:
+      - name: Retrieves binaries
+        uses: actions/cache@v3
+        with:
+          path: Build\\CMake\\Generated\\${{ matrix.generator }}\\${{ matrix.toolset }}\\${{ matrix.arch }}\\${{ matrix.config }}\\**
+          key: nmake-vs2022-${{ matrix.arch }}-${{ matrix.toolset }}-${{ matrix.config }}-build-cache
+      - name: Test
+        shell: pwsh
+        run: cmd.exe /c Build\\CMake\\Windows\\test.bat "${{ matrix.generator }}" ${{ matrix.arch }} ${{ matrix.toolset }} ${{ matrix.config }}
+      - name: Create Badge
+        if: always()
+        shell: pwsh
+        run: |
+          $svg_path="Status/OSLayer/Test/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-${{ matrix.config }}-test.svg"
+          if('${{steps.build.outcome}}' -eq 'success') {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Fail-red.svg?logo=cachet&logoColor=white"
+          } elseif('${{steps.build.outcome}}' -eq 'failure') {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Success-green.svg?logo=cachet&logoColor=white"
+          } else {
+            $url = "https://img.shields.io/badge/${{matrix.config}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
+          }
+          Invoke-WebRequest $url -OutFile ( New-Item -Path $svg_path -Force )
+      - name: Save badges
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: os-layer-test-status
+          path: Status/OSLayer/Test/*.svg
+
+  #---------------------------
+  #
   # Push workflow status
   #
   #----------------------------
@@ -285,13 +373,18 @@ jobs:
         with:
           name: os-layer-build-status
           path: Status/OSLayer/Build/
+      - name: Download test status
+        uses: actions/download-artifact@v3
+        with:
+          name: os-layer-test-status
+          path: Status/OSLayer/Test/
       - name: Push to status web-site
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source-directory: 'Status/OSLayer/Generations'
-          target-directory: 'Status/OSLayer/Generations'
+          source-directory: 'Status/OSLayer'
+          target-directory: 'Status/OSLayer'
           destination-github-username: 'hud-software'
           destination-repository-name: 'hud-engine-status'
           user-email: ci-oslayer
