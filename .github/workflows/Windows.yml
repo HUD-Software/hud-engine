@@ -16,7 +16,7 @@ jobs:
       - name: Cache repository
         uses: actions/cache@v3
         with:
-          path: .
+          path: ./**
           key: repository-cache
   list:
     runs-on: windows-latest
