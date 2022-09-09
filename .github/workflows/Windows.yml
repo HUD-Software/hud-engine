@@ -54,7 +54,7 @@ jobs:
           $svg_path="Status/OSLayer/Generations/${{matrix.generator}}-${{matrix.toolset}}-${{matrix.arch}}-generation.svg"
           if(${{steps.generation.outcome}} -eq 'success') {
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Fail-red.svg?logo=cmake&logoColor=white"
-          } else if(${{steps.generation.outcome}} -eq 'failure') {
+          } elif(${{steps.generation.outcome}} -eq 'failure') {
             $url = "https://img.shields.io/badge/${{matrix.arch}}-Success-green.svg?logo=cmake&logoColor=white"
           } else {
             $url = "https://img.shields.io/badge/${{matrix.config}}-Invalid-grey.svg?logo=visualstudio&logoColor=white"
