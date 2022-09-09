@@ -192,7 +192,7 @@ jobs:
 
   push_status:
     runs-on: ubuntu-latest
-    needs: [generate_vs, generate_nmake]
+    needs: [build_vs, generate_nmake]
     if: always()
     steps:
       - name: Download generation status
