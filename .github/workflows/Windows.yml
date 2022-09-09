@@ -360,7 +360,7 @@ jobs:
   #----------------------------
   push_status:
     runs-on: ubuntu-latest
-    needs: [build_vs, generate_nmake]
+    needs: [test_vs, test_nmake]
     if: always()
     steps:
       - name: Download generation status
