@@ -1,9 +1,8 @@
 # OS Abstraction Layer (OSAL)
 
 - [x] Compilation
-- [ ] Debugger
+- [x] Debugger
   - [x] Test on linux that debugger detection works
-  - [ ] Add __nop on Windows before DebugBreak
 - [x] Types
 - [ ] Template
   - [ ] Add a AssertIfInstanciate<T> struct in template and use it in hash, and replace EvaluateIfInstanciate
