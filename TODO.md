@@ -23,7 +23,7 @@
 - [x] UniquePointer
 - [x] SharedPointer
   - [x] Check SharedPointer correctly use the DefaultDeleter ElementType and PointerType
-  - [ ] ReferenceControllerNoDeleter should use Slice instead of number_of_T+ buffer
+  - [x] ReferenceControllerNoDeleter should use Slice instead of number_of_T+ buffer
 - [ ] Hash
   - [ ] Move CityHash fetch32 and fetch64 to Memory and make it constexpr
   - [ ] Use the AssertIfInstanciate in the hash that is not defined with message "Hash function for the type T is not implemented"
