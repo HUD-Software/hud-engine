@@ -14,7 +14,7 @@
 - [ ] CString
   - [ ] Correctly implement Linux copy_safe, copy_partial_safe, append_safe, append_partial_safe, length_safe
 - [ ] Memory
-  - [ ] Once HeapBuffer is 2 pointers, maybe Memory::*array should take end pointer and not count 
+  - [x] Once HeapBuffer is 2 pointers, maybe Memory::*array should take end pointer and not count 
   - [ ] Check if we can use only Memory::compare with u8* version and get rid of void* version
 - [x] Pair
   - [x] Pair should use conditional explicit
