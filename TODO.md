@@ -2,7 +2,7 @@
 
 - [x] Compilation
 - [ ] Debugger
-  - [ ] Test on linux that debugger detection works
+  - [x] Test on linux that debugger detection works
   - [ ] Add __nop on Windows before DebugBreak
 - [x] Types
 - [ ] Template
